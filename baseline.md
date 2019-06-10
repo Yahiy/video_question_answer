@@ -9,6 +9,7 @@ cached_file = os.path.join('/home/stage/yuan/models', filename)
 1. text only 
 ep 70 lstm 512 output 1024
 ```
+test acc is : 0.425024
 class TgifModel(nn.Module):
     def __init__(self):
         super(TgifModel, self).__init__()
