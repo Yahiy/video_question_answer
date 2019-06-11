@@ -2418,3 +2418,2426 @@ test img 400 acc is : 18
 test acc is : 0.425024
 
 Process finished with exit code 0
+
+
+resnet+text
+/home/stage/anaconda2/envs/py35torch4/bin/python /home/stage/yuan/video_qa/base/train.py
+Load word_matrix from pkl file : /home/stage/yuan/tgif-qa/code/dataset/tgif/Vocabulary/vocab_embedding_FrameQA.pkl
+Load word2idx from pkl file : /home/stage/yuan/tgif-qa/code/dataset/tgif/Vocabulary/word_to_index_FrameQA.pkl
+Load idx2word from pkl file : /home/stage/yuan/tgif-qa/code/dataset/tgif/Vocabulary/index_to_word_FrameQA.pkl
+Load answer2idx from pkl file : /home/stage/yuan/tgif-qa/code/dataset/tgif/Vocabulary/ans_to_index_FrameQA.pkl
+Load idx2answers from pkl file : /home/stage/yuan/tgif-qa/code/dataset/tgif/Vocabulary/index_to_ans_FrameQA.pkl
+TgifModel(
+  (base_resnet): ResNet(
+    (conv1): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+    (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (relu): ReLU(inplace)
+    (maxpool): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+    (layer1): Sequential(
+      (0): Bottleneck(
+        (conv1): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+        (downsample): Sequential(
+          (0): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (1): Bottleneck(
+        (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (2): Bottleneck(
+        (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+    )
+    (layer2): Sequential(
+      (0): Bottleneck(
+        (conv1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+        (downsample): Sequential(
+          (0): Conv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
+          (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (1): Bottleneck(
+        (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (2): Bottleneck(
+        (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (3): Bottleneck(
+        (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (4): Bottleneck(
+        (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (5): Bottleneck(
+        (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (6): Bottleneck(
+        (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (7): Bottleneck(
+        (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+    )
+    (layer3): Sequential(
+      (0): Bottleneck(
+        (conv1): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+        (downsample): Sequential(
+          (0): Conv2d(512, 1024, kernel_size=(1, 1), stride=(2, 2), bias=False)
+          (1): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (1): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (2): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (3): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (4): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (5): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (6): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (7): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (8): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (9): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (10): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (11): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (12): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (13): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (14): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (15): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (16): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (17): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (18): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (19): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (20): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (21): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (22): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (23): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (24): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (25): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (26): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (27): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (28): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (29): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (30): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (31): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (32): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (33): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (34): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (35): Bottleneck(
+        (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+    )
+    (layer4): Sequential(
+      (0): Bottleneck(
+        (conv1): Conv2d(1024, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+        (downsample): Sequential(
+          (0): Conv2d(1024, 2048, kernel_size=(1, 1), stride=(2, 2), bias=False)
+          (1): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (1): Bottleneck(
+        (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+      (2): Bottleneck(
+        (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace)
+      )
+    )
+    (avgpool): AvgPool2d(kernel_size=7, stride=1, padding=0)
+    (fc): Linear(in_features=2048, out_features=1000, bias=True)
+  )
+  (video_rnn): LSTM(2048, 512, num_layers=2, batch_first=True)
+  (rnn): LSTM(300, 512, num_layers=2, batch_first=True)
+  (fc): Sequential(
+    (0): Linear(in_features=1024, out_features=1746, bias=True)
+  )
+)
+/home/stage/yuan/video_qa/base/train.py:104: UserWarning: invalid index of a 0-dim tensor. This will be an error in PyTorch 0.5. Use tensor.item() to convert a 0-dim tensor to a Python number
+  losses.update(loss.data[0], ans_labels.size(0))
+Epoch: [0][1/1000]	 Loss 7.469062 (7.469062)	 acc 0 (0)	
+Epoch: [0][51/1000]	 Loss 6.949608 (7.314095)	 acc 12 (3)	
+Epoch: [0][101/1000]	 Loss 5.283044 (6.833476)	 acc 6 (4)	
+Epoch: [0][151/1000]	 Loss 4.636552 (6.148773)	 acc 5 (4)	
+Epoch: [0][201/1000]	 Loss 5.173846 (5.780411)	 acc 1 (4)	
+Epoch: [0][251/1000]	 Loss 4.833102 (5.538398)	 acc 4 (4)	
+Epoch: [0][301/1000]	 Loss 4.824683 (5.346596)	 acc 5 (4)	
+Epoch: [0][351/1000]	 Loss 4.251021 (5.228236)	 acc 4 (4)	
+Epoch: [0][401/1000]	 Loss 5.097499 (5.135164)	 acc 0 (4)	
+Epoch: [0][451/1000]	 Loss 4.334543 (5.059669)	 acc 3 (4)	
+Epoch: [0][501/1000]	 Loss 5.763959 (5.001671)	 acc 3 (4)	
+Epoch: [0][551/1000]	 Loss 5.014812 (4.938119)	 acc 4 (4)	
+Epoch: [0][601/1000]	 Loss 4.338472 (4.886055)	 acc 5 (4)	
+Epoch: [0][651/1000]	 Loss 3.965858 (4.819287)	 acc 8 (5)	
+Epoch: [0][701/1000]	 Loss 3.481153 (4.744554)	 acc 10 (5)	
+Epoch: [0][751/1000]	 Loss 3.044796 (4.670030)	 acc 11 (5)	
+Epoch: [0][801/1000]	 Loss 4.189834 (4.604706)	 acc 7 (5)	
+Epoch: [0][851/1000]	 Loss 3.595596 (4.538614)	 acc 9 (5)	
+Epoch: [0][901/1000]	 Loss 2.898933 (4.477301)	 acc 11 (6)	
+Epoch: [0][951/1000]	 Loss 3.974792 (4.416590)	 acc 6 (6)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000009
+val img 50 acc is : 000010
+val img 100 acc is : 000014
+val img 150 acc is : 000011
+val img 200 acc is : 000009
+valid acc 0.317911
+save model best at ep 0
+Epoch: [1][1/1000]	 Loss 2.906904 (2.906904)	 acc 12 (12)	
+Epoch: [1][51/1000]	 Loss 3.205458 (3.340684)	 acc 13 (9)	
+Epoch: [1][101/1000]	 Loss 3.501797 (3.302661)	 acc 10 (9)	
+Epoch: [1][151/1000]	 Loss 3.633316 (3.276396)	 acc 9 (9)	
+Epoch: [1][201/1000]	 Loss 3.821927 (3.309981)	 acc 4 (9)	
+Epoch: [1][251/1000]	 Loss 3.735225 (3.325045)	 acc 9 (9)	
+Epoch: [1][301/1000]	 Loss 3.673024 (3.314367)	 acc 9 (9)	
+Epoch: [1][351/1000]	 Loss 3.091565 (3.323347)	 acc 8 (9)	
+Epoch: [1][401/1000]	 Loss 4.123558 (3.328996)	 acc 3 (9)	
+Epoch: [1][451/1000]	 Loss 3.347780 (3.330792)	 acc 6 (9)	
+Epoch: [1][501/1000]	 Loss 4.674510 (3.334918)	 acc 6 (9)	
+Epoch: [1][551/1000]	 Loss 4.013265 (3.319554)	 acc 11 (9)	
+Epoch: [1][601/1000]	 Loss 3.686022 (3.320058)	 acc 5 (9)	
+Epoch: [1][651/1000]	 Loss 3.366292 (3.317719)	 acc 11 (9)	
+Epoch: [1][701/1000]	 Loss 2.681417 (3.304017)	 acc 15 (9)	
+Epoch: [1][751/1000]	 Loss 2.609778 (3.289106)	 acc 13 (9)	
+Epoch: [1][801/1000]	 Loss 3.719354 (3.279203)	 acc 9 (9)	
+Epoch: [1][851/1000]	 Loss 3.280388 (3.266897)	 acc 11 (10)	
+Epoch: [1][901/1000]	 Loss 2.428298 (3.255744)	 acc 13 (10)	
+Epoch: [1][951/1000]	 Loss 3.338006 (3.242057)	 acc 10 (10)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000013
+val img 50 acc is : 000017
+val img 100 acc is : 000015
+val img 150 acc is : 000013
+val img 200 acc is : 000011
+valid acc 0.378247
+save model best at ep 1
+Epoch: [2][1/1000]	 Loss 2.399643 (2.399643)	 acc 17 (17)	
+Epoch: [2][51/1000]	 Loss 3.010274 (3.030409)	 acc 15 (10)	
+Epoch: [2][101/1000]	 Loss 3.422044 (2.991025)	 acc 12 (11)	
+Epoch: [2][151/1000]	 Loss 3.227846 (2.978566)	 acc 13 (11)	
+Epoch: [2][201/1000]	 Loss 3.578027 (3.008829)	 acc 11 (11)	
+Epoch: [2][251/1000]	 Loss 3.428910 (3.019701)	 acc 12 (11)	
+Epoch: [2][301/1000]	 Loss 3.491334 (3.007694)	 acc 11 (11)	
+Epoch: [2][351/1000]	 Loss 2.702573 (3.016673)	 acc 14 (11)	
+Epoch: [2][401/1000]	 Loss 3.726331 (3.021877)	 acc 9 (11)	
+Epoch: [2][451/1000]	 Loss 3.133719 (3.023776)	 acc 8 (11)	
+Epoch: [2][501/1000]	 Loss 4.443936 (3.026346)	 acc 8 (11)	
+Epoch: [2][551/1000]	 Loss 3.743216 (3.016044)	 acc 14 (11)	
+Epoch: [2][601/1000]	 Loss 3.181009 (3.018574)	 acc 9 (11)	
+Epoch: [2][651/1000]	 Loss 3.047377 (3.021991)	 acc 12 (11)	
+Epoch: [2][701/1000]	 Loss 2.491890 (3.015177)	 acc 14 (11)	
+Epoch: [2][751/1000]	 Loss 2.397676 (3.004905)	 acc 13 (11)	
+Epoch: [2][801/1000]	 Loss 3.467758 (3.001496)	 acc 11 (11)	
+Epoch: [2][851/1000]	 Loss 3.099682 (2.995641)	 acc 10 (11)	
+Epoch: [2][901/1000]	 Loss 2.200371 (2.989193)	 acc 15 (11)	
+Epoch: [2][951/1000]	 Loss 3.267816 (2.981587)	 acc 9 (11)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000012
+val img 50 acc is : 000017
+val img 100 acc is : 000016
+val img 150 acc is : 000012
+val img 200 acc is : 000010
+valid acc 0.394345
+save model best at ep 2
+Epoch: [3][1/1000]	 Loss 2.240069 (2.240069)	 acc 15 (15)	
+Epoch: [3][51/1000]	 Loss 2.914430 (2.858485)	 acc 15 (11)	
+Epoch: [3][101/1000]	 Loss 3.121858 (2.821008)	 acc 14 (12)	
+Epoch: [3][151/1000]	 Loss 2.948984 (2.796071)	 acc 14 (12)	
+Epoch: [3][201/1000]	 Loss 3.412066 (2.834031)	 acc 10 (12)	
+Epoch: [3][251/1000]	 Loss 3.371346 (2.847965)	 acc 11 (12)	
+Epoch: [3][301/1000]	 Loss 3.332486 (2.840365)	 acc 12 (12)	
+Epoch: [3][351/1000]	 Loss 2.519712 (2.849227)	 acc 14 (12)	
+Epoch: [3][401/1000]	 Loss 3.598427 (2.858210)	 acc 10 (12)	
+Epoch: [3][451/1000]	 Loss 3.134847 (2.865252)	 acc 6 (12)	
+Epoch: [3][501/1000]	 Loss 4.322869 (2.868145)	 acc 9 (12)	
+Epoch: [3][551/1000]	 Loss 3.537490 (2.861196)	 acc 14 (12)	
+Epoch: [3][601/1000]	 Loss 3.084899 (2.864207)	 acc 8 (12)	
+Epoch: [3][651/1000]	 Loss 2.771187 (2.866214)	 acc 13 (12)	
+Epoch: [3][701/1000]	 Loss 2.329568 (2.860017)	 acc 16 (12)	
+Epoch: [3][751/1000]	 Loss 2.315990 (2.851918)	 acc 15 (12)	
+Epoch: [3][801/1000]	 Loss 3.316670 (2.851547)	 acc 14 (12)	
+Epoch: [3][851/1000]	 Loss 3.046871 (2.847537)	 acc 11 (12)	
+Epoch: [3][901/1000]	 Loss 2.044398 (2.841903)	 acc 16 (12)	
+Epoch: [3][951/1000]	 Loss 3.028151 (2.833557)	 acc 12 (12)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000012
+val img 50 acc is : 000017
+val img 100 acc is : 000018
+val img 150 acc is : 000012
+val img 200 acc is : 000011
+valid acc 0.413826
+save model best at ep 3
+Epoch: [4][1/1000]	 Loss 2.179325 (2.179325)	 acc 15 (15)	
+Epoch: [4][51/1000]	 Loss 2.730517 (2.728690)	 acc 15 (13)	
+Epoch: [4][101/1000]	 Loss 2.998854 (2.682324)	 acc 12 (13)	
+Epoch: [4][151/1000]	 Loss 2.878314 (2.659922)	 acc 16 (13)	
+Epoch: [4][201/1000]	 Loss 3.053986 (2.714278)	 acc 13 (13)	
+Epoch: [4][251/1000]	 Loss 3.395445 (2.723505)	 acc 10 (13)	
+Epoch: [4][301/1000]	 Loss 3.064130 (2.713413)	 acc 13 (13)	
+Epoch: [4][351/1000]	 Loss 2.458579 (2.717505)	 acc 13 (13)	
+Epoch: [4][401/1000]	 Loss 3.376325 (2.721226)	 acc 9 (13)	
+Epoch: [4][451/1000]	 Loss 3.077251 (2.728060)	 acc 11 (13)	
+Epoch: [4][501/1000]	 Loss 4.184117 (2.732819)	 acc 7 (13)	
+Epoch: [4][551/1000]	 Loss 3.442458 (2.726849)	 acc 15 (13)	
+Epoch: [4][601/1000]	 Loss 2.827407 (2.728317)	 acc 11 (13)	
+Epoch: [4][651/1000]	 Loss 2.666523 (2.729586)	 acc 14 (13)	
+Epoch: [4][701/1000]	 Loss 2.119827 (2.721517)	 acc 21 (13)	
+Epoch: [4][751/1000]	 Loss 2.234794 (2.711056)	 acc 17 (13)	
+Epoch: [4][801/1000]	 Loss 3.109089 (2.708485)	 acc 13 (13)	
+Epoch: [4][851/1000]	 Loss 2.796647 (2.702955)	 acc 13 (13)	
+Epoch: [4][901/1000]	 Loss 1.866625 (2.694851)	 acc 19 (13)	
+Epoch: [4][951/1000]	 Loss 2.889703 (2.686498)	 acc 12 (13)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000020
+val img 100 acc is : 000019
+val img 150 acc is : 000012
+val img 200 acc is : 000014
+valid acc 0.454004
+save model best at ep 4
+Epoch: [5][1/1000]	 Loss 2.025331 (2.025331)	 acc 16 (16)	
+Epoch: [5][51/1000]	 Loss 2.556127 (2.526296)	 acc 16 (15)	
+Epoch: [5][101/1000]	 Loss 2.867692 (2.507370)	 acc 11 (14)	
+Epoch: [5][151/1000]	 Loss 2.813463 (2.502023)	 acc 15 (14)	
+Epoch: [5][201/1000]	 Loss 2.935102 (2.532807)	 acc 13 (14)	
+Epoch: [5][251/1000]	 Loss 3.276375 (2.551215)	 acc 11 (14)	
+Epoch: [5][301/1000]	 Loss 2.898578 (2.542808)	 acc 15 (14)	
+Epoch: [5][351/1000]	 Loss 2.279614 (2.549044)	 acc 15 (14)	
+Epoch: [5][401/1000]	 Loss 3.177275 (2.562753)	 acc 11 (14)	
+Epoch: [5][451/1000]	 Loss 2.598439 (2.572120)	 acc 15 (14)	
+Epoch: [5][501/1000]	 Loss 4.133336 (2.578469)	 acc 7 (14)	
+Epoch: [5][551/1000]	 Loss 3.261454 (2.575021)	 acc 15 (14)	
+Epoch: [5][601/1000]	 Loss 2.460469 (2.578305)	 acc 14 (14)	
+Epoch: [5][651/1000]	 Loss 2.626027 (2.580025)	 acc 16 (14)	
+Epoch: [5][701/1000]	 Loss 1.980059 (2.575284)	 acc 21 (14)	
+Epoch: [5][751/1000]	 Loss 2.209025 (2.566440)	 acc 17 (14)	
+Epoch: [5][801/1000]	 Loss 3.038905 (2.565213)	 acc 14 (14)	
+Epoch: [5][851/1000]	 Loss 2.579880 (2.561007)	 acc 15 (14)	
+Epoch: [5][901/1000]	 Loss 1.789853 (2.556000)	 acc 18 (14)	
+Epoch: [5][951/1000]	 Loss 2.778477 (2.549122)	 acc 12 (14)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000018
+val img 100 acc is : 000018
+val img 150 acc is : 000014
+val img 200 acc is : 000016
+valid acc 0.462662
+save model best at ep 5
+Epoch: [6][1/1000]	 Loss 1.872416 (1.872416)	 acc 16 (16)	
+Epoch: [6][51/1000]	 Loss 2.389252 (2.415452)	 acc 19 (15)	
+Epoch: [6][101/1000]	 Loss 2.953594 (2.397766)	 acc 11 (15)	
+Epoch: [6][151/1000]	 Loss 2.729540 (2.393191)	 acc 16 (15)	
+Epoch: [6][201/1000]	 Loss 2.747312 (2.429957)	 acc 13 (15)	
+Epoch: [6][251/1000]	 Loss 3.147922 (2.448192)	 acc 14 (15)	
+Epoch: [6][301/1000]	 Loss 2.806431 (2.443022)	 acc 11 (15)	
+Epoch: [6][351/1000]	 Loss 2.213692 (2.449023)	 acc 15 (15)	
+Epoch: [6][401/1000]	 Loss 3.058858 (2.458308)	 acc 11 (15)	
+Epoch: [6][451/1000]	 Loss 2.578440 (2.472148)	 acc 14 (15)	
+Epoch: [6][501/1000]	 Loss 3.943678 (2.477387)	 acc 9 (15)	
+Epoch: [6][551/1000]	 Loss 3.063675 (2.474977)	 acc 17 (15)	
+Epoch: [6][601/1000]	 Loss 2.446677 (2.480025)	 acc 14 (14)	
+Epoch: [6][651/1000]	 Loss 2.323236 (2.482206)	 acc 19 (14)	
+Epoch: [6][701/1000]	 Loss 2.017003 (2.476755)	 acc 22 (15)	
+Epoch: [6][751/1000]	 Loss 2.164108 (2.468374)	 acc 16 (15)	
+Epoch: [6][801/1000]	 Loss 2.702806 (2.466890)	 acc 16 (15)	
+Epoch: [6][851/1000]	 Loss 2.527091 (2.463287)	 acc 14 (15)	
+Epoch: [6][901/1000]	 Loss 1.724465 (2.457355)	 acc 19 (15)	
+Epoch: [6][951/1000]	 Loss 2.712670 (2.451787)	 acc 14 (15)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000017
+val img 50 acc is : 000020
+val img 100 acc is : 000018
+val img 150 acc is : 000014
+val img 200 acc is : 000013
+valid acc 0.484172
+save model best at ep 6
+Epoch: [7][1/1000]	 Loss 1.782490 (1.782490)	 acc 18 (18)	
+Epoch: [7][51/1000]	 Loss 2.290730 (2.324152)	 acc 19 (16)	
+Epoch: [7][101/1000]	 Loss 2.761855 (2.305920)	 acc 12 (16)	
+Epoch: [7][151/1000]	 Loss 2.732396 (2.311594)	 acc 17 (16)	
+Epoch: [7][201/1000]	 Loss 2.471449 (2.348920)	 acc 14 (15)	
+Epoch: [7][251/1000]	 Loss 3.169369 (2.372258)	 acc 13 (15)	
+Epoch: [7][301/1000]	 Loss 2.788395 (2.364290)	 acc 13 (15)	
+Epoch: [7][351/1000]	 Loss 2.097702 (2.368610)	 acc 16 (15)	
+Epoch: [7][401/1000]	 Loss 2.950968 (2.379350)	 acc 13 (15)	
+Epoch: [7][451/1000]	 Loss 2.587713 (2.391606)	 acc 16 (15)	
+Epoch: [7][501/1000]	 Loss 3.932218 (2.396939)	 acc 10 (15)	
+Epoch: [7][551/1000]	 Loss 2.981128 (2.392700)	 acc 17 (15)	
+Epoch: [7][601/1000]	 Loss 2.249021 (2.396855)	 acc 15 (15)	
+Epoch: [7][651/1000]	 Loss 2.187635 (2.399023)	 acc 19 (15)	
+Epoch: [7][701/1000]	 Loss 1.926170 (2.395729)	 acc 21 (15)	
+Epoch: [7][751/1000]	 Loss 2.083199 (2.388850)	 acc 17 (15)	
+Epoch: [7][801/1000]	 Loss 2.895772 (2.388874)	 acc 13 (15)	
+Epoch: [7][851/1000]	 Loss 2.646971 (2.385156)	 acc 14 (15)	
+Epoch: [7][901/1000]	 Loss 1.634915 (2.378689)	 acc 20 (15)	
+Epoch: [7][951/1000]	 Loss 2.680039 (2.373853)	 acc 13 (15)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000017
+val img 50 acc is : 000020
+val img 100 acc is : 000020
+val img 150 acc is : 000016
+val img 200 acc is : 000015
+valid acc 0.488636
+save model best at ep 7
+Epoch: [8][1/1000]	 Loss 1.716764 (1.716764)	 acc 19 (19)	
+Epoch: [8][51/1000]	 Loss 2.319204 (2.248258)	 acc 18 (16)	
+Epoch: [8][101/1000]	 Loss 2.606951 (2.227518)	 acc 13 (16)	
+Epoch: [8][151/1000]	 Loss 2.662443 (2.234918)	 acc 17 (16)	
+Epoch: [8][201/1000]	 Loss 2.288280 (2.268655)	 acc 16 (16)	
+Epoch: [8][251/1000]	 Loss 3.112655 (2.285413)	 acc 13 (16)	
+Epoch: [8][301/1000]	 Loss 2.698838 (2.283236)	 acc 15 (16)	
+Epoch: [8][351/1000]	 Loss 2.089478 (2.288275)	 acc 17 (16)	
+Epoch: [8][401/1000]	 Loss 2.831923 (2.297606)	 acc 15 (16)	
+Epoch: [8][451/1000]	 Loss 2.539140 (2.306246)	 acc 15 (16)	
+Epoch: [8][501/1000]	 Loss 3.766540 (2.310969)	 acc 9 (16)	
+Epoch: [8][551/1000]	 Loss 2.988372 (2.310943)	 acc 16 (16)	
+Epoch: [8][601/1000]	 Loss 2.142105 (2.315869)	 acc 18 (16)	
+Epoch: [8][651/1000]	 Loss 2.220382 (2.320200)	 acc 18 (16)	
+Epoch: [8][701/1000]	 Loss 1.671989 (2.316766)	 acc 22 (16)	
+Epoch: [8][751/1000]	 Loss 1.979549 (2.311028)	 acc 16 (16)	
+Epoch: [8][801/1000]	 Loss 2.816319 (2.311825)	 acc 14 (16)	
+Epoch: [8][851/1000]	 Loss 2.426132 (2.308906)	 acc 14 (16)	
+Epoch: [8][901/1000]	 Loss 1.692163 (2.302569)	 acc 19 (16)	
+Epoch: [8][951/1000]	 Loss 2.447711 (2.297584)	 acc 13 (16)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000020
+val img 100 acc is : 000019
+val img 150 acc is : 000017
+val img 200 acc is : 000013
+valid acc 0.491207
+save model best at ep 8
+Epoch: [9][1/1000]	 Loss 1.649743 (1.649743)	 acc 19 (19)	
+Epoch: [9][51/1000]	 Loss 2.141757 (2.194453)	 acc 19 (16)	
+Epoch: [9][101/1000]	 Loss 2.562096 (2.165876)	 acc 12 (16)	
+Epoch: [9][151/1000]	 Loss 2.551966 (2.173992)	 acc 19 (16)	
+Epoch: [9][201/1000]	 Loss 2.276964 (2.207340)	 acc 15 (16)	
+Epoch: [9][251/1000]	 Loss 3.054344 (2.223535)	 acc 12 (16)	
+Epoch: [9][301/1000]	 Loss 2.648629 (2.221878)	 acc 16 (16)	
+Epoch: [9][351/1000]	 Loss 2.046516 (2.228931)	 acc 17 (16)	
+Epoch: [9][401/1000]	 Loss 2.703658 (2.237395)	 acc 16 (16)	
+Epoch: [9][451/1000]	 Loss 2.374622 (2.246158)	 acc 17 (16)	
+Epoch: [9][501/1000]	 Loss 3.596327 (2.250632)	 acc 9 (16)	
+Epoch: [9][551/1000]	 Loss 2.795546 (2.250182)	 acc 15 (16)	
+Epoch: [9][601/1000]	 Loss 2.166467 (2.256713)	 acc 15 (16)	
+Epoch: [9][651/1000]	 Loss 2.099970 (2.260359)	 acc 18 (16)	
+Epoch: [9][701/1000]	 Loss 1.682413 (2.259139)	 acc 23 (16)	
+Epoch: [9][751/1000]	 Loss 2.000845 (2.252936)	 acc 18 (16)	
+Epoch: [9][801/1000]	 Loss 2.745965 (2.252324)	 acc 13 (16)	
+Epoch: [9][851/1000]	 Loss 2.356420 (2.249603)	 acc 15 (16)	
+Epoch: [9][901/1000]	 Loss 1.682347 (2.243866)	 acc 19 (16)	
+Epoch: [9][951/1000]	 Loss 2.348253 (2.239064)	 acc 13 (16)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000018
+val img 50 acc is : 000019
+val img 100 acc is : 000019
+val img 150 acc is : 000016
+val img 200 acc is : 000014
+valid acc 0.500271
+save model best at ep 9
+Epoch: [10][1/1000]	 Loss 1.616257 (1.616257)	 acc 19 (19)	
+Epoch: [10][51/1000]	 Loss 2.140837 (2.123555)	 acc 17 (16)	
+Epoch: [10][101/1000]	 Loss 2.412365 (2.129085)	 acc 13 (16)	
+Epoch: [10][151/1000]	 Loss 2.645521 (2.133358)	 acc 18 (16)	
+Epoch: [10][201/1000]	 Loss 2.336342 (2.162510)	 acc 16 (16)	
+Epoch: [10][251/1000]	 Loss 3.020524 (2.176080)	 acc 14 (16)	
+Epoch: [10][301/1000]	 Loss 2.663029 (2.175173)	 acc 15 (16)	
+Epoch: [10][351/1000]	 Loss 2.008815 (2.181839)	 acc 18 (16)	
+Epoch: [10][401/1000]	 Loss 2.566642 (2.188162)	 acc 14 (16)	
+Epoch: [10][451/1000]	 Loss 2.554273 (2.195482)	 acc 14 (16)	
+Epoch: [10][501/1000]	 Loss 3.665117 (2.200551)	 acc 10 (16)	
+Epoch: [10][551/1000]	 Loss 2.903550 (2.201003)	 acc 13 (16)	
+Epoch: [10][601/1000]	 Loss 2.005154 (2.205700)	 acc 15 (16)	
+Epoch: [10][651/1000]	 Loss 2.154613 (2.208162)	 acc 16 (16)	
+Epoch: [10][701/1000]	 Loss 1.664810 (2.205990)	 acc 22 (16)	
+Epoch: [10][751/1000]	 Loss 2.117875 (2.199017)	 acc 18 (16)	
+Epoch: [10][801/1000]	 Loss 2.670643 (2.197968)	 acc 16 (16)	
+Epoch: [10][851/1000]	 Loss 2.348621 (2.197641)	 acc 15 (16)	
+Epoch: [10][901/1000]	 Loss 1.481693 (2.191484)	 acc 21 (16)	
+Epoch: [10][951/1000]	 Loss 2.300814 (2.186427)	 acc 15 (16)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000018
+val img 50 acc is : 000020
+val img 100 acc is : 000019
+val img 150 acc is : 000016
+val img 200 acc is : 000015
+valid acc 0.497700
+Epoch: [11][1/1000]	 Loss 1.580583 (1.580583)	 acc 18 (18)	
+Epoch: [11][51/1000]	 Loss 2.063753 (2.093617)	 acc 17 (17)	
+Epoch: [11][101/1000]	 Loss 2.403709 (2.073942)	 acc 14 (17)	
+Epoch: [11][151/1000]	 Loss 2.483506 (2.088832)	 acc 19 (17)	
+Epoch: [11][201/1000]	 Loss 2.114484 (2.123641)	 acc 17 (16)	
+Epoch: [11][251/1000]	 Loss 2.963078 (2.133714)	 acc 14 (16)	
+Epoch: [11][301/1000]	 Loss 2.456492 (2.125183)	 acc 16 (16)	
+Epoch: [11][351/1000]	 Loss 1.931183 (2.127195)	 acc 19 (16)	
+Epoch: [11][401/1000]	 Loss 2.486028 (2.130632)	 acc 16 (16)	
+Epoch: [11][451/1000]	 Loss 2.554079 (2.146262)	 acc 13 (16)	
+Epoch: [11][501/1000]	 Loss 3.535003 (2.149915)	 acc 11 (16)	
+Epoch: [11][551/1000]	 Loss 2.842581 (2.149144)	 acc 13 (16)	
+Epoch: [11][601/1000]	 Loss 1.955677 (2.154779)	 acc 18 (16)	
+Epoch: [11][651/1000]	 Loss 1.949741 (2.158484)	 acc 18 (16)	
+Epoch: [11][701/1000]	 Loss 1.720077 (2.155298)	 acc 22 (16)	
+Epoch: [11][751/1000]	 Loss 2.075969 (2.151343)	 acc 17 (16)	
+Epoch: [11][801/1000]	 Loss 2.558110 (2.151216)	 acc 15 (16)	
+Epoch: [11][851/1000]	 Loss 2.181024 (2.149619)	 acc 16 (16)	
+Epoch: [11][901/1000]	 Loss 1.464624 (2.143365)	 acc 20 (16)	
+Epoch: [11][951/1000]	 Loss 2.323326 (2.137563)	 acc 14 (16)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000020
+val img 50 acc is : 000018
+val img 100 acc is : 000018
+val img 150 acc is : 000017
+val img 200 acc is : 000015
+valid acc 0.498377
+Epoch: [12][1/1000]	 Loss 1.530168 (1.530168)	 acc 19 (19)	
+Epoch: [12][51/1000]	 Loss 1.922430 (2.040716)	 acc 18 (17)	
+Epoch: [12][101/1000]	 Loss 2.175881 (2.020755)	 acc 16 (17)	
+Epoch: [12][151/1000]	 Loss 2.495570 (2.028785)	 acc 19 (17)	
+Epoch: [12][201/1000]	 Loss 2.054933 (2.068387)	 acc 17 (17)	
+Epoch: [12][251/1000]	 Loss 2.970162 (2.088694)	 acc 14 (17)	
+Epoch: [12][301/1000]	 Loss 2.411450 (2.083417)	 acc 17 (17)	
+Epoch: [12][351/1000]	 Loss 1.958835 (2.086011)	 acc 19 (17)	
+Epoch: [12][401/1000]	 Loss 2.361381 (2.089015)	 acc 15 (17)	
+Epoch: [12][451/1000]	 Loss 2.441407 (2.102310)	 acc 14 (17)	
+Epoch: [12][501/1000]	 Loss 3.552402 (2.104211)	 acc 9 (17)	
+Epoch: [12][551/1000]	 Loss 2.725121 (2.102611)	 acc 15 (17)	
+Epoch: [12][601/1000]	 Loss 1.863560 (2.105391)	 acc 17 (16)	
+Epoch: [12][651/1000]	 Loss 2.036312 (2.108037)	 acc 15 (16)	
+Epoch: [12][701/1000]	 Loss 1.670095 (2.104435)	 acc 22 (16)	
+Epoch: [12][751/1000]	 Loss 1.849221 (2.098658)	 acc 19 (17)	
+Epoch: [12][801/1000]	 Loss 2.394709 (2.096986)	 acc 17 (17)	
+Epoch: [12][851/1000]	 Loss 2.197202 (2.096145)	 acc 14 (17)	
+Epoch: [12][901/1000]	 Loss 1.482300 (2.091240)	 acc 20 (17)	
+Epoch: [12][951/1000]	 Loss 2.319124 (2.087706)	 acc 12 (17)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000019
+val img 50 acc is : 000020
+val img 100 acc is : 000019
+val img 150 acc is : 000016
+val img 200 acc is : 000015
+valid acc 0.500947
+save model best at ep 12
+Epoch: [13][1/1000]	 Loss 1.403121 (1.403121)	 acc 21 (21)	
+Epoch: [13][51/1000]	 Loss 1.848726 (1.994598)	 acc 19 (17)	
+Epoch: [13][101/1000]	 Loss 2.281182 (1.965037)	 acc 14 (17)	
+Epoch: [13][151/1000]	 Loss 2.452127 (1.974812)	 acc 19 (17)	
+Epoch: [13][201/1000]	 Loss 2.070792 (2.009981)	 acc 17 (17)	
+Epoch: [13][251/1000]	 Loss 2.907902 (2.029080)	 acc 16 (17)	
+Epoch: [13][301/1000]	 Loss 2.381522 (2.022733)	 acc 16 (17)	
+Epoch: [13][351/1000]	 Loss 1.916808 (2.022701)	 acc 18 (17)	
+Epoch: [13][401/1000]	 Loss 2.262901 (2.028737)	 acc 15 (17)	
+Epoch: [13][451/1000]	 Loss 2.502129 (2.042166)	 acc 13 (17)	
+Epoch: [13][501/1000]	 Loss 3.422091 (2.045207)	 acc 9 (17)	
+Epoch: [13][551/1000]	 Loss 2.704368 (2.043476)	 acc 15 (17)	
+Epoch: [13][601/1000]	 Loss 2.054213 (2.046979)	 acc 16 (17)	
+Epoch: [13][651/1000]	 Loss 1.954674 (2.049173)	 acc 14 (17)	
+Epoch: [13][701/1000]	 Loss 1.594010 (2.045083)	 acc 22 (17)	
+Epoch: [13][751/1000]	 Loss 1.884337 (2.039851)	 acc 19 (17)	
+Epoch: [13][801/1000]	 Loss 2.351083 (2.039038)	 acc 17 (17)	
+Epoch: [13][851/1000]	 Loss 2.099204 (2.036875)	 acc 16 (17)	
+Epoch: [13][901/1000]	 Loss 1.283884 (2.033983)	 acc 21 (17)	
+Epoch: [13][951/1000]	 Loss 2.226801 (2.032288)	 acc 13 (17)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000019
+val img 50 acc is : 000020
+val img 100 acc is : 000018
+val img 150 acc is : 000016
+val img 200 acc is : 000015
+valid acc 0.502165
+save model best at ep 13
+Epoch: [14][1/1000]	 Loss 1.474809 (1.474809)	 acc 20 (20)	
+Epoch: [14][51/1000]	 Loss 1.832656 (1.978045)	 acc 21 (17)	
+Epoch: [14][101/1000]	 Loss 2.115260 (1.935415)	 acc 16 (17)	
+Epoch: [14][151/1000]	 Loss 2.379205 (1.946303)	 acc 18 (17)	
+Epoch: [14][201/1000]	 Loss 1.986028 (1.975487)	 acc 16 (17)	
+Epoch: [14][251/1000]	 Loss 2.917916 (1.993172)	 acc 14 (17)	
+Epoch: [14][301/1000]	 Loss 2.330487 (1.985691)	 acc 15 (17)	
+Epoch: [14][351/1000]	 Loss 1.856660 (1.983272)	 acc 19 (17)	
+Epoch: [14][401/1000]	 Loss 2.117673 (1.986228)	 acc 16 (17)	
+Epoch: [14][451/1000]	 Loss 2.405711 (1.996271)	 acc 15 (17)	
+Epoch: [14][501/1000]	 Loss 3.335833 (1.998181)	 acc 10 (17)	
+Epoch: [14][551/1000]	 Loss 2.539741 (1.994857)	 acc 16 (17)	
+Epoch: [14][601/1000]	 Loss 1.819872 (1.997756)	 acc 19 (17)	
+Epoch: [14][651/1000]	 Loss 1.893050 (2.000607)	 acc 16 (17)	
+Epoch: [14][701/1000]	 Loss 1.657519 (2.000139)	 acc 21 (17)	
+Epoch: [14][751/1000]	 Loss 1.946545 (1.996540)	 acc 15 (17)	
+Epoch: [14][801/1000]	 Loss 2.272270 (1.994372)	 acc 16 (17)	
+Epoch: [14][851/1000]	 Loss 2.330007 (1.992723)	 acc 15 (17)	
+Epoch: [14][901/1000]	 Loss 1.225722 (1.990252)	 acc 21 (17)	
+Epoch: [14][951/1000]	 Loss 2.208736 (1.988672)	 acc 14 (17)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000017
+val img 50 acc is : 000019
+val img 100 acc is : 000018
+val img 150 acc is : 000016
+val img 200 acc is : 000014
+valid acc 0.506764
+save model best at ep 14
+Epoch: [15][1/1000]	 Loss 1.423752 (1.423752)	 acc 21 (21)	
+Epoch: [15][51/1000]	 Loss 1.923152 (1.949857)	 acc 19 (18)	
+Epoch: [15][101/1000]	 Loss 2.031690 (1.905581)	 acc 16 (18)	
+Epoch: [15][151/1000]	 Loss 2.387086 (1.910343)	 acc 19 (17)	
+Epoch: [15][201/1000]	 Loss 2.066403 (1.939974)	 acc 17 (17)	
+Epoch: [15][251/1000]	 Loss 2.793200 (1.955800)	 acc 15 (17)	
+Epoch: [15][301/1000]	 Loss 2.316583 (1.952735)	 acc 15 (17)	
+Epoch: [15][351/1000]	 Loss 1.823234 (1.951618)	 acc 18 (17)	
+Epoch: [15][401/1000]	 Loss 2.234581 (1.955810)	 acc 15 (17)	
+Epoch: [15][451/1000]	 Loss 2.537574 (1.971044)	 acc 13 (17)	
+Epoch: [15][501/1000]	 Loss 3.046634 (1.973677)	 acc 14 (17)	
+Epoch: [15][551/1000]	 Loss 2.437582 (1.972405)	 acc 16 (17)	
+Epoch: [15][601/1000]	 Loss 1.826776 (1.974127)	 acc 16 (17)	
+Epoch: [15][651/1000]	 Loss 1.891445 (1.973669)	 acc 15 (17)	
+Epoch: [15][701/1000]	 Loss 1.643449 (1.970556)	 acc 20 (17)	
+Epoch: [15][751/1000]	 Loss 1.670452 (1.967054)	 acc 20 (17)	
+Epoch: [15][801/1000]	 Loss 2.234672 (1.965769)	 acc 18 (17)	
+Epoch: [15][851/1000]	 Loss 2.130614 (1.964634)	 acc 14 (17)	
+Epoch: [15][901/1000]	 Loss 1.139299 (1.961975)	 acc 23 (17)	
+Epoch: [15][951/1000]	 Loss 2.149649 (1.958493)	 acc 16 (17)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000018
+val img 50 acc is : 000020
+val img 100 acc is : 000019
+val img 150 acc is : 000017
+val img 200 acc is : 000016
+valid acc 0.500676
+Epoch: [16][1/1000]	 Loss 1.499703 (1.499703)	 acc 22 (22)	
+Epoch: [16][51/1000]	 Loss 1.676616 (1.881237)	 acc 18 (18)	
+Epoch: [16][101/1000]	 Loss 2.055555 (1.856591)	 acc 15 (18)	
+Epoch: [16][151/1000]	 Loss 2.399059 (1.863963)	 acc 19 (18)	
+Epoch: [16][201/1000]	 Loss 1.921677 (1.897634)	 acc 18 (18)	
+Epoch: [16][251/1000]	 Loss 2.742611 (1.915273)	 acc 14 (17)	
+Epoch: [16][301/1000]	 Loss 2.357577 (1.907008)	 acc 16 (18)	
+Epoch: [16][351/1000]	 Loss 1.758603 (1.903631)	 acc 19 (18)	
+Epoch: [16][401/1000]	 Loss 2.078674 (1.904944)	 acc 17 (18)	
+Epoch: [16][451/1000]	 Loss 2.610385 (1.923365)	 acc 13 (17)	
+Epoch: [16][501/1000]	 Loss 3.059628 (1.927581)	 acc 10 (17)	
+Epoch: [16][551/1000]	 Loss 2.348047 (1.927457)	 acc 16 (17)	
+Epoch: [16][601/1000]	 Loss 1.892595 (1.933583)	 acc 17 (17)	
+Epoch: [16][651/1000]	 Loss 1.836371 (1.936975)	 acc 16 (17)	
+Epoch: [16][701/1000]	 Loss 1.542087 (1.934017)	 acc 22 (17)	
+Epoch: [16][751/1000]	 Loss 1.715052 (1.929751)	 acc 20 (17)	
+Epoch: [16][801/1000]	 Loss 2.262184 (1.929155)	 acc 17 (17)	
+Epoch: [16][851/1000]	 Loss 2.003709 (1.927459)	 acc 16 (17)	
+Epoch: [16][901/1000]	 Loss 1.253804 (1.923723)	 acc 21 (17)	
+Epoch: [16][951/1000]	 Loss 2.258144 (1.920027)	 acc 13 (17)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000019
+val img 50 acc is : 000019
+val img 100 acc is : 000018
+val img 150 acc is : 000017
+val img 200 acc is : 000013
+valid acc 0.503517
+Epoch: [17][1/1000]	 Loss 1.548566 (1.548566)	 acc 19 (19)	
+Epoch: [17][51/1000]	 Loss 1.771948 (1.834838)	 acc 19 (18)	
+Epoch: [17][101/1000]	 Loss 1.798724 (1.805644)	 acc 18 (18)	
+Epoch: [17][151/1000]	 Loss 2.273898 (1.815613)	 acc 20 (18)	
+Epoch: [17][201/1000]	 Loss 1.893817 (1.848166)	 acc 18 (18)	
+Epoch: [17][251/1000]	 Loss 2.803220 (1.880171)	 acc 16 (17)	
+Epoch: [17][301/1000]	 Loss 2.160510 (1.879471)	 acc 17 (17)	
+Epoch: [17][351/1000]	 Loss 1.766307 (1.876124)	 acc 18 (18)	
+Epoch: [17][401/1000]	 Loss 2.196413 (1.879362)	 acc 15 (18)	
+Epoch: [17][451/1000]	 Loss 2.419909 (1.894193)	 acc 16 (17)	
+Epoch: [17][501/1000]	 Loss 2.990045 (1.896722)	 acc 11 (17)	
+Epoch: [17][551/1000]	 Loss 2.400967 (1.892383)	 acc 17 (17)	
+Epoch: [17][601/1000]	 Loss 1.743937 (1.892446)	 acc 19 (17)	
+Epoch: [17][651/1000]	 Loss 1.635331 (1.892552)	 acc 19 (17)	
+Epoch: [17][701/1000]	 Loss 1.488096 (1.889051)	 acc 22 (17)	
+Epoch: [17][751/1000]	 Loss 1.598491 (1.883132)	 acc 19 (17)	
+Epoch: [17][801/1000]	 Loss 2.247461 (1.882224)	 acc 16 (17)	
+Epoch: [17][851/1000]	 Loss 2.108317 (1.880062)	 acc 17 (17)	
+Epoch: [17][901/1000]	 Loss 1.235496 (1.875847)	 acc 19 (18)	
+Epoch: [17][951/1000]	 Loss 2.183572 (1.872038)	 acc 16 (18)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000016
+val img 100 acc is : 000019
+val img 150 acc is : 000017
+val img 200 acc is : 000014
+valid acc 0.502841
+Epoch: [18][1/1000]	 Loss 1.380157 (1.380157)	 acc 20 (20)	
+Epoch: [18][51/1000]	 Loss 1.643596 (1.806319)	 acc 21 (18)	
+Epoch: [18][101/1000]	 Loss 1.830342 (1.768807)	 acc 17 (18)	
+Epoch: [18][151/1000]	 Loss 2.271759 (1.770935)	 acc 18 (18)	
+Epoch: [18][201/1000]	 Loss 1.698955 (1.802231)	 acc 19 (18)	
+Epoch: [18][251/1000]	 Loss 2.802819 (1.832832)	 acc 16 (18)	
+Epoch: [18][301/1000]	 Loss 2.262194 (1.836877)	 acc 15 (18)	
+Epoch: [18][351/1000]	 Loss 1.793144 (1.836794)	 acc 18 (18)	
+Epoch: [18][401/1000]	 Loss 2.143439 (1.836902)	 acc 18 (18)	
+Epoch: [18][451/1000]	 Loss 2.381366 (1.850226)	 acc 15 (18)	
+Epoch: [18][501/1000]	 Loss 2.953978 (1.851368)	 acc 11 (18)	
+Epoch: [18][551/1000]	 Loss 2.270690 (1.846127)	 acc 15 (18)	
+Epoch: [18][601/1000]	 Loss 1.669088 (1.846882)	 acc 17 (18)	
+Epoch: [18][651/1000]	 Loss 1.617332 (1.848535)	 acc 19 (18)	
+Epoch: [18][701/1000]	 Loss 1.495842 (1.846424)	 acc 23 (18)	
+Epoch: [18][751/1000]	 Loss 1.589594 (1.844504)	 acc 20 (18)	
+Epoch: [18][801/1000]	 Loss 1.978564 (1.841428)	 acc 18 (18)	
+Epoch: [18][851/1000]	 Loss 2.072799 (1.838249)	 acc 18 (18)	
+Epoch: [18][901/1000]	 Loss 1.250091 (1.835784)	 acc 23 (18)	
+Epoch: [18][951/1000]	 Loss 1.999769 (1.832683)	 acc 17 (18)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000017
+val img 100 acc is : 000019
+val img 150 acc is : 000016
+val img 200 acc is : 000016
+valid acc 0.502976
+Epoch: [19][1/1000]	 Loss 1.388092 (1.388092)	 acc 21 (21)	
+Epoch: [19][51/1000]	 Loss 1.777862 (1.735534)	 acc 19 (19)	
+Epoch: [19][101/1000]	 Loss 1.932640 (1.713936)	 acc 18 (19)	
+Epoch: [19][151/1000]	 Loss 2.201491 (1.723879)	 acc 21 (19)	
+Epoch: [19][201/1000]	 Loss 1.842026 (1.754575)	 acc 17 (18)	
+Epoch: [19][251/1000]	 Loss 2.906464 (1.780705)	 acc 14 (18)	
+Epoch: [19][301/1000]	 Loss 2.107115 (1.776399)	 acc 17 (18)	
+Epoch: [19][351/1000]	 Loss 1.758268 (1.772634)	 acc 18 (18)	
+Epoch: [19][401/1000]	 Loss 2.185372 (1.779364)	 acc 19 (18)	
+Epoch: [19][451/1000]	 Loss 2.146308 (1.794354)	 acc 15 (18)	
+Epoch: [19][501/1000]	 Loss 2.756666 (1.795844)	 acc 12 (18)	
+Epoch: [19][551/1000]	 Loss 2.194058 (1.793279)	 acc 17 (18)	
+Epoch: [19][601/1000]	 Loss 1.611609 (1.796468)	 acc 21 (18)	
+Epoch: [19][651/1000]	 Loss 1.479417 (1.797004)	 acc 20 (18)	
+Epoch: [19][701/1000]	 Loss 1.515681 (1.795197)	 acc 23 (18)	
+Epoch: [19][751/1000]	 Loss 1.583768 (1.793606)	 acc 16 (18)	
+Epoch: [19][801/1000]	 Loss 2.028763 (1.791658)	 acc 19 (18)	
+Epoch: [19][851/1000]	 Loss 1.938485 (1.789830)	 acc 15 (18)	
+Epoch: [19][901/1000]	 Loss 1.200820 (1.789433)	 acc 25 (18)	
+Epoch: [19][951/1000]	 Loss 2.165446 (1.788291)	 acc 17 (18)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000017
+val img 50 acc is : 000020
+val img 100 acc is : 000019
+val img 150 acc is : 000017
+val img 200 acc is : 000014
+valid acc 0.511093
+save model best at ep 19
+Epoch: [20][1/1000]	 Loss 1.200537 (1.200537)	 acc 21 (21)	
+Epoch: [20][51/1000]	 Loss 1.734262 (1.716293)	 acc 21 (19)	
+Epoch: [20][101/1000]	 Loss 1.814764 (1.681616)	 acc 17 (19)	
+Epoch: [20][151/1000]	 Loss 2.207909 (1.686348)	 acc 19 (19)	
+Epoch: [20][201/1000]	 Loss 1.575377 (1.715384)	 acc 19 (18)	
+Epoch: [20][251/1000]	 Loss 2.672672 (1.733399)	 acc 16 (18)	
+Epoch: [20][301/1000]	 Loss 1.925165 (1.732512)	 acc 19 (18)	
+Epoch: [20][351/1000]	 Loss 1.777934 (1.727968)	 acc 19 (18)	
+Epoch: [20][401/1000]	 Loss 2.104944 (1.729613)	 acc 18 (18)	
+Epoch: [20][451/1000]	 Loss 2.074119 (1.743423)	 acc 17 (18)	
+Epoch: [20][501/1000]	 Loss 2.847502 (1.750646)	 acc 11 (18)	
+Epoch: [20][551/1000]	 Loss 2.201318 (1.749092)	 acc 19 (18)	
+Epoch: [20][601/1000]	 Loss 1.750166 (1.752548)	 acc 19 (18)	
+Epoch: [20][651/1000]	 Loss 1.728426 (1.756015)	 acc 19 (18)	
+Epoch: [20][701/1000]	 Loss 1.411718 (1.756780)	 acc 23 (18)	
+Epoch: [20][751/1000]	 Loss 1.453321 (1.755114)	 acc 19 (18)	
+Epoch: [20][801/1000]	 Loss 1.865423 (1.753790)	 acc 19 (18)	
+Epoch: [20][851/1000]	 Loss 1.944584 (1.752217)	 acc 18 (18)	
+Epoch: [20][901/1000]	 Loss 1.029118 (1.750813)	 acc 24 (18)	
+Epoch: [20][951/1000]	 Loss 1.861965 (1.748255)	 acc 19 (18)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000018
+val img 100 acc is : 000019
+val img 150 acc is : 000017
+val img 200 acc is : 000013
+valid acc 0.504329
+Epoch: [21][1/1000]	 Loss 1.317058 (1.317058)	 acc 20 (20)	
+Epoch: [21][51/1000]	 Loss 1.652735 (1.712439)	 acc 19 (19)	
+Epoch: [21][101/1000]	 Loss 1.814686 (1.656383)	 acc 19 (19)	
+Epoch: [21][151/1000]	 Loss 2.184034 (1.651187)	 acc 18 (19)	
+Epoch: [21][201/1000]	 Loss 1.563121 (1.676849)	 acc 20 (19)	
+Epoch: [21][251/1000]	 Loss 2.636239 (1.699387)	 acc 17 (19)	
+Epoch: [21][301/1000]	 Loss 1.972167 (1.690856)	 acc 18 (19)	
+Epoch: [21][351/1000]	 Loss 1.639844 (1.686500)	 acc 18 (19)	
+Epoch: [21][401/1000]	 Loss 1.926567 (1.692124)	 acc 16 (19)	
+Epoch: [21][451/1000]	 Loss 1.942156 (1.706975)	 acc 18 (18)	
+Epoch: [21][501/1000]	 Loss 2.605806 (1.711162)	 acc 11 (18)	
+Epoch: [21][551/1000]	 Loss 2.033080 (1.711190)	 acc 16 (18)	
+Epoch: [21][601/1000]	 Loss 1.481292 (1.715528)	 acc 21 (18)	
+Epoch: [21][651/1000]	 Loss 1.577987 (1.720998)	 acc 21 (18)	
+Epoch: [21][701/1000]	 Loss 1.459978 (1.721994)	 acc 23 (18)	
+Epoch: [21][751/1000]	 Loss 1.307065 (1.722000)	 acc 21 (18)	
+Epoch: [21][801/1000]	 Loss 1.936208 (1.720391)	 acc 17 (18)	
+Epoch: [21][851/1000]	 Loss 1.902126 (1.719011)	 acc 15 (18)	
+Epoch: [21][901/1000]	 Loss 0.966718 (1.717739)	 acc 25 (18)	
+Epoch: [21][951/1000]	 Loss 1.964168 (1.715210)	 acc 17 (18)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000015
+val img 50 acc is : 000019
+val img 100 acc is : 000018
+val img 150 acc is : 000018
+val img 200 acc is : 000016
+valid acc 0.503923
+Epoch: [22][1/1000]	 Loss 1.269659 (1.269659)	 acc 21 (21)	
+Epoch: [22][51/1000]	 Loss 1.673403 (1.692878)	 acc 19 (19)	
+Epoch: [22][101/1000]	 Loss 1.779395 (1.633206)	 acc 17 (19)	
+Epoch: [22][151/1000]	 Loss 1.968814 (1.629544)	 acc 19 (19)	
+Epoch: [22][201/1000]	 Loss 1.555801 (1.652717)	 acc 19 (19)	
+Epoch: [22][251/1000]	 Loss 2.768130 (1.668314)	 acc 13 (19)	
+Epoch: [22][301/1000]	 Loss 2.038209 (1.662927)	 acc 15 (19)	
+Epoch: [22][351/1000]	 Loss 1.846267 (1.663288)	 acc 17 (19)	
+Epoch: [22][401/1000]	 Loss 1.969289 (1.671168)	 acc 18 (19)	
+Epoch: [22][451/1000]	 Loss 2.122054 (1.687165)	 acc 17 (18)	
+Epoch: [22][501/1000]	 Loss 2.517198 (1.692484)	 acc 12 (18)	
+Epoch: [22][551/1000]	 Loss 2.037020 (1.689252)	 acc 16 (18)	
+Epoch: [22][601/1000]	 Loss 1.708972 (1.689265)	 acc 20 (18)	
+Epoch: [22][651/1000]	 Loss 1.643853 (1.692785)	 acc 17 (18)	
+Epoch: [22][701/1000]	 Loss 1.425414 (1.693451)	 acc 23 (18)	
+Epoch: [22][751/1000]	 Loss 1.372643 (1.690569)	 acc 22 (18)	
+Epoch: [22][801/1000]	 Loss 2.032389 (1.689399)	 acc 18 (18)	
+Epoch: [22][851/1000]	 Loss 1.884900 (1.688412)	 acc 14 (18)	
+Epoch: [22][901/1000]	 Loss 1.059917 (1.687202)	 acc 25 (18)	
+Epoch: [22][951/1000]	 Loss 1.789226 (1.683775)	 acc 20 (18)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000019
+val img 100 acc is : 000019
+val img 150 acc is : 000018
+val img 200 acc is : 000012
+valid acc 0.505276
+Epoch: [23][1/1000]	 Loss 1.195823 (1.195823)	 acc 23 (23)	
+Epoch: [23][51/1000]	 Loss 1.650288 (1.665691)	 acc 18 (19)	
+Epoch: [23][101/1000]	 Loss 1.639611 (1.613315)	 acc 19 (19)	
+Epoch: [23][151/1000]	 Loss 1.918541 (1.620812)	 acc 22 (19)	
+Epoch: [23][201/1000]	 Loss 1.370467 (1.639950)	 acc 21 (19)	
+Epoch: [23][251/1000]	 Loss 2.512947 (1.649862)	 acc 16 (19)	
+Epoch: [23][301/1000]	 Loss 1.877241 (1.643597)	 acc 20 (19)	
+Epoch: [23][351/1000]	 Loss 1.597657 (1.634914)	 acc 19 (19)	
+Epoch: [23][401/1000]	 Loss 1.833531 (1.637523)	 acc 21 (19)	
+Epoch: [23][451/1000]	 Loss 2.259702 (1.651113)	 acc 15 (19)	
+Epoch: [23][501/1000]	 Loss 2.602164 (1.654250)	 acc 13 (19)	
+Epoch: [23][551/1000]	 Loss 1.900742 (1.652296)	 acc 17 (19)	
+Epoch: [23][601/1000]	 Loss 1.494714 (1.652416)	 acc 20 (19)	
+Epoch: [23][651/1000]	 Loss 1.532580 (1.657525)	 acc 19 (19)	
+Epoch: [23][701/1000]	 Loss 1.418168 (1.657720)	 acc 22 (19)	
+Epoch: [23][751/1000]	 Loss 1.285075 (1.655571)	 acc 17 (19)	
+Epoch: [23][801/1000]	 Loss 1.898986 (1.652828)	 acc 19 (19)	
+Epoch: [23][851/1000]	 Loss 2.075934 (1.650843)	 acc 14 (19)	
+Epoch: [23][901/1000]	 Loss 1.205831 (1.648453)	 acc 21 (19)	
+Epoch: [23][951/1000]	 Loss 1.781367 (1.645020)	 acc 18 (19)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000014
+val img 50 acc is : 000019
+val img 100 acc is : 000018
+val img 150 acc is : 000017
+val img 200 acc is : 000014
+valid acc 0.504329
+Epoch: [24][1/1000]	 Loss 1.248073 (1.248073)	 acc 21 (21)	
+Epoch: [24][51/1000]	 Loss 1.416480 (1.607033)	 acc 20 (19)	
+Epoch: [24][101/1000]	 Loss 1.693642 (1.556895)	 acc 19 (19)	
+Epoch: [24][151/1000]	 Loss 1.919573 (1.569186)	 acc 18 (19)	
+Epoch: [24][201/1000]	 Loss 1.529755 (1.587312)	 acc 19 (19)	
+Epoch: [24][251/1000]	 Loss 2.565353 (1.600566)	 acc 13 (19)	
+Epoch: [24][301/1000]	 Loss 2.094602 (1.597685)	 acc 17 (19)	
+Epoch: [24][351/1000]	 Loss 1.775038 (1.595240)	 acc 16 (19)	
+Epoch: [24][401/1000]	 Loss 2.018652 (1.599607)	 acc 17 (19)	
+Epoch: [24][451/1000]	 Loss 2.058486 (1.611899)	 acc 15 (19)	
+Epoch: [24][501/1000]	 Loss 2.570344 (1.617315)	 acc 14 (19)	
+Epoch: [24][551/1000]	 Loss 1.910597 (1.619188)	 acc 16 (19)	
+Epoch: [24][601/1000]	 Loss 1.550695 (1.621654)	 acc 17 (19)	
+Epoch: [24][651/1000]	 Loss 1.349321 (1.621469)	 acc 20 (19)	
+Epoch: [24][701/1000]	 Loss 1.328475 (1.619830)	 acc 22 (19)	
+Epoch: [24][751/1000]	 Loss 1.456540 (1.616123)	 acc 17 (19)	
+Epoch: [24][801/1000]	 Loss 1.888994 (1.611905)	 acc 17 (19)	
+Epoch: [24][851/1000]	 Loss 1.719716 (1.609691)	 acc 15 (19)	
+Epoch: [24][901/1000]	 Loss 1.104485 (1.607648)	 acc 22 (19)	
+Epoch: [24][951/1000]	 Loss 1.929638 (1.604418)	 acc 18 (19)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000017
+val img 50 acc is : 000018
+val img 100 acc is : 000020
+val img 150 acc is : 000018
+val img 200 acc is : 000013
+valid acc 0.510011
+Epoch: [25][1/1000]	 Loss 1.187459 (1.187459)	 acc 22 (22)	
+Epoch: [25][51/1000]	 Loss 1.590514 (1.594269)	 acc 18 (19)	
+Epoch: [25][101/1000]	 Loss 1.566651 (1.574102)	 acc 20 (19)	
+Epoch: [25][151/1000]	 Loss 1.811779 (1.573720)	 acc 19 (19)	
+Epoch: [25][201/1000]	 Loss 1.518270 (1.579498)	 acc 19 (19)	
+Epoch: [25][251/1000]	 Loss 2.294101 (1.585025)	 acc 16 (19)	
+Epoch: [25][301/1000]	 Loss 1.818231 (1.575825)	 acc 21 (19)	
+Epoch: [25][351/1000]	 Loss 1.537845 (1.567011)	 acc 20 (19)	
+Epoch: [25][401/1000]	 Loss 1.872261 (1.566132)	 acc 20 (19)	
+Epoch: [25][451/1000]	 Loss 1.862845 (1.570106)	 acc 15 (19)	
+Epoch: [25][501/1000]	 Loss 2.437608 (1.570337)	 acc 11 (19)	
+Epoch: [25][551/1000]	 Loss 1.848185 (1.571356)	 acc 17 (19)	
+Epoch: [25][601/1000]	 Loss 1.669271 (1.573183)	 acc 17 (19)	
+Epoch: [25][651/1000]	 Loss 1.477643 (1.575690)	 acc 18 (19)	
+Epoch: [25][701/1000]	 Loss 1.305351 (1.575458)	 acc 22 (19)	
+Epoch: [25][751/1000]	 Loss 1.147575 (1.572518)	 acc 22 (19)	
+Epoch: [25][801/1000]	 Loss 2.045680 (1.571640)	 acc 16 (19)	
+Epoch: [25][851/1000]	 Loss 1.848386 (1.570752)	 acc 17 (19)	
+Epoch: [25][901/1000]	 Loss 1.064361 (1.569237)	 acc 24 (19)	
+Epoch: [25][951/1000]	 Loss 1.711549 (1.564735)	 acc 18 (19)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000019
+val img 50 acc is : 000016
+val img 100 acc is : 000019
+val img 150 acc is : 000016
+val img 200 acc is : 000015
+valid acc 0.510823
+Epoch: [26][1/1000]	 Loss 1.184951 (1.184951)	 acc 22 (22)	
+Epoch: [26][51/1000]	 Loss 1.323036 (1.525846)	 acc 22 (20)	
+Epoch: [26][101/1000]	 Loss 1.464263 (1.478736)	 acc 19 (20)	
+Epoch: [26][151/1000]	 Loss 2.050761 (1.492077)	 acc 17 (20)	
+Epoch: [26][201/1000]	 Loss 1.295310 (1.516832)	 acc 19 (19)	
+Epoch: [26][251/1000]	 Loss 2.450636 (1.533046)	 acc 13 (19)	
+Epoch: [26][301/1000]	 Loss 1.676683 (1.528214)	 acc 17 (19)	
+Epoch: [26][351/1000]	 Loss 1.580649 (1.522076)	 acc 19 (19)	
+Epoch: [26][401/1000]	 Loss 1.821363 (1.522038)	 acc 20 (19)	
+Epoch: [26][451/1000]	 Loss 1.989213 (1.540468)	 acc 18 (19)	
+Epoch: [26][501/1000]	 Loss 2.333251 (1.547694)	 acc 15 (19)	
+Epoch: [26][551/1000]	 Loss 1.902663 (1.550167)	 acc 18 (19)	
+Epoch: [26][601/1000]	 Loss 1.257128 (1.551386)	 acc 22 (19)	
+Epoch: [26][651/1000]	 Loss 1.362115 (1.551471)	 acc 21 (19)	
+Epoch: [26][701/1000]	 Loss 1.275601 (1.548604)	 acc 23 (19)	
+Epoch: [26][751/1000]	 Loss 1.189258 (1.546313)	 acc 23 (19)	
+Epoch: [26][801/1000]	 Loss 2.072960 (1.544268)	 acc 15 (19)	
+Epoch: [26][851/1000]	 Loss 1.732651 (1.542625)	 acc 19 (19)	
+Epoch: [26][901/1000]	 Loss 1.018120 (1.540695)	 acc 24 (19)	
+Epoch: [26][951/1000]	 Loss 1.699243 (1.535537)	 acc 19 (19)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000014
+val img 50 acc is : 000019
+val img 100 acc is : 000021
+val img 150 acc is : 000018
+val img 200 acc is : 000012
+valid acc 0.512040
+save model best at ep 26
+Epoch: [27][1/1000]	 Loss 1.166037 (1.166037)	 acc 23 (23)	
+Epoch: [27][51/1000]	 Loss 1.429554 (1.453921)	 acc 21 (20)	
+Epoch: [27][101/1000]	 Loss 1.439435 (1.428491)	 acc 19 (20)	
+Epoch: [27][151/1000]	 Loss 1.882588 (1.444849)	 acc 18 (20)	
+Epoch: [27][201/1000]	 Loss 1.524011 (1.469201)	 acc 18 (19)	
+Epoch: [27][251/1000]	 Loss 2.282003 (1.479716)	 acc 17 (19)	
+Epoch: [27][301/1000]	 Loss 1.740431 (1.470655)	 acc 19 (19)	
+Epoch: [27][351/1000]	 Loss 1.384488 (1.462829)	 acc 21 (20)	
+Epoch: [27][401/1000]	 Loss 1.697852 (1.465736)	 acc 18 (19)	
+Epoch: [27][451/1000]	 Loss 1.867087 (1.474833)	 acc 15 (19)	
+Epoch: [27][501/1000]	 Loss 2.027466 (1.478693)	 acc 16 (19)	
+Epoch: [27][551/1000]	 Loss 1.795264 (1.479720)	 acc 19 (19)	
+Epoch: [27][601/1000]	 Loss 1.376599 (1.488194)	 acc 20 (19)	
+Epoch: [27][651/1000]	 Loss 1.384944 (1.488356)	 acc 18 (19)	
+Epoch: [27][701/1000]	 Loss 1.320220 (1.488199)	 acc 22 (19)	
+Epoch: [27][751/1000]	 Loss 1.158432 (1.486168)	 acc 22 (19)	
+Epoch: [27][801/1000]	 Loss 1.972562 (1.485288)	 acc 18 (19)	
+Epoch: [27][851/1000]	 Loss 1.518943 (1.483905)	 acc 21 (19)	
+Epoch: [27][901/1000]	 Loss 1.189182 (1.484572)	 acc 24 (19)	
+Epoch: [27][951/1000]	 Loss 1.574361 (1.482239)	 acc 19 (19)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000014
+val img 50 acc is : 000018
+val img 100 acc is : 000020
+val img 150 acc is : 000015
+val img 200 acc is : 000014
+valid acc 0.522998
+save model best at ep 27
+Epoch: [28][1/1000]	 Loss 1.133100 (1.133100)	 acc 20 (20)	
+Epoch: [28][51/1000]	 Loss 1.358039 (1.428703)	 acc 20 (20)	
+Epoch: [28][101/1000]	 Loss 1.598724 (1.394855)	 acc 18 (20)	
+Epoch: [28][151/1000]	 Loss 1.582125 (1.403347)	 acc 17 (20)	
+Epoch: [28][201/1000]	 Loss 1.254656 (1.427044)	 acc 20 (20)	
+Epoch: [28][251/1000]	 Loss 2.167526 (1.447553)	 acc 18 (20)	
+Epoch: [28][301/1000]	 Loss 1.658878 (1.442988)	 acc 20 (20)	
+Epoch: [28][351/1000]	 Loss 1.414450 (1.438816)	 acc 19 (20)	
+Epoch: [28][401/1000]	 Loss 1.565900 (1.442609)	 acc 19 (20)	
+Epoch: [28][451/1000]	 Loss 1.977652 (1.454050)	 acc 15 (20)	
+Epoch: [28][501/1000]	 Loss 2.192066 (1.457676)	 acc 13 (19)	
+Epoch: [28][551/1000]	 Loss 1.669591 (1.461068)	 acc 20 (19)	
+Epoch: [28][601/1000]	 Loss 1.342636 (1.462741)	 acc 20 (19)	
+Epoch: [28][651/1000]	 Loss 1.214746 (1.462814)	 acc 20 (19)	
+Epoch: [28][701/1000]	 Loss 1.399219 (1.463454)	 acc 21 (19)	
+Epoch: [28][751/1000]	 Loss 1.277186 (1.464100)	 acc 22 (19)	
+Epoch: [28][801/1000]	 Loss 1.890687 (1.462301)	 acc 17 (19)	
+Epoch: [28][851/1000]	 Loss 1.556515 (1.461722)	 acc 20 (19)	
+Epoch: [28][901/1000]	 Loss 0.821246 (1.459875)	 acc 27 (19)	
+Epoch: [28][951/1000]	 Loss 1.604941 (1.458126)	 acc 19 (19)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000017
+val img 50 acc is : 000019
+val img 100 acc is : 000019
+val img 150 acc is : 000015
+val img 200 acc is : 000016
+valid acc 0.509064
+Epoch: [29][1/1000]	 Loss 1.266988 (1.266988)	 acc 19 (19)	
+Epoch: [29][51/1000]	 Loss 1.438758 (1.422595)	 acc 21 (20)	
+Epoch: [29][101/1000]	 Loss 1.547457 (1.409899)	 acc 17 (20)	
+Epoch: [29][151/1000]	 Loss 1.653788 (1.400275)	 acc 19 (20)	
+Epoch: [29][201/1000]	 Loss 1.154450 (1.409562)	 acc 22 (20)	
+Epoch: [29][251/1000]	 Loss 2.093877 (1.415750)	 acc 17 (20)	
+Epoch: [29][301/1000]	 Loss 1.732217 (1.409779)	 acc 18 (20)	
+Epoch: [29][351/1000]	 Loss 1.387534 (1.401776)	 acc 19 (20)	
+Epoch: [29][401/1000]	 Loss 1.813180 (1.401791)	 acc 19 (20)	
+Epoch: [29][451/1000]	 Loss 1.764402 (1.409954)	 acc 19 (20)	
+Epoch: [29][501/1000]	 Loss 2.019183 (1.413390)	 acc 15 (20)	
+Epoch: [29][551/1000]	 Loss 1.653047 (1.411877)	 acc 20 (20)	
+Epoch: [29][601/1000]	 Loss 1.294151 (1.417753)	 acc 23 (20)	
+Epoch: [29][651/1000]	 Loss 1.270234 (1.422829)	 acc 20 (20)	
+Epoch: [29][701/1000]	 Loss 1.152034 (1.423852)	 acc 24 (20)	
+Epoch: [29][751/1000]	 Loss 1.282685 (1.421185)	 acc 23 (20)	
+Epoch: [29][801/1000]	 Loss 2.030590 (1.417763)	 acc 14 (20)	
+Epoch: [29][851/1000]	 Loss 1.529312 (1.415291)	 acc 18 (20)	
+Epoch: [29][901/1000]	 Loss 1.089263 (1.417716)	 acc 24 (20)	
+Epoch: [29][951/1000]	 Loss 1.683026 (1.419644)	 acc 18 (20)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000020
+val img 100 acc is : 000018
+val img 150 acc is : 000017
+val img 200 acc is : 000015
+valid acc 0.507305
+Epoch: [30][1/1000]	 Loss 1.142225 (1.142225)	 acc 20 (20)	
+Epoch: [30][51/1000]	 Loss 1.273141 (1.406518)	 acc 22 (20)	
+Epoch: [30][101/1000]	 Loss 1.505916 (1.367399)	 acc 17 (20)	
+Epoch: [30][151/1000]	 Loss 1.404551 (1.356027)	 acc 21 (20)	
+Epoch: [30][201/1000]	 Loss 1.021510 (1.373833)	 acc 24 (20)	
+Epoch: [30][251/1000]	 Loss 2.103125 (1.391320)	 acc 17 (20)	
+Epoch: [30][301/1000]	 Loss 1.547288 (1.386885)	 acc 20 (20)	
+Epoch: [30][351/1000]	 Loss 1.418844 (1.388136)	 acc 19 (20)	
+Epoch: [30][401/1000]	 Loss 1.601762 (1.392084)	 acc 20 (20)	
+Epoch: [30][451/1000]	 Loss 1.631451 (1.398764)	 acc 16 (20)	
+Epoch: [30][501/1000]	 Loss 2.116375 (1.398320)	 acc 16 (20)	
+Epoch: [30][551/1000]	 Loss 1.742056 (1.398443)	 acc 21 (20)	
+Epoch: [30][601/1000]	 Loss 1.395995 (1.399117)	 acc 19 (20)	
+Epoch: [30][651/1000]	 Loss 1.223260 (1.399809)	 acc 19 (20)	
+Epoch: [30][701/1000]	 Loss 1.095800 (1.396959)	 acc 25 (20)	
+Epoch: [30][751/1000]	 Loss 1.242619 (1.393321)	 acc 21 (20)	
+Epoch: [30][801/1000]	 Loss 1.971498 (1.390849)	 acc 16 (20)	
+Epoch: [30][851/1000]	 Loss 1.568382 (1.390044)	 acc 20 (20)	
+Epoch: [30][901/1000]	 Loss 0.863955 (1.388011)	 acc 24 (20)	
+Epoch: [30][951/1000]	 Loss 1.519115 (1.385137)	 acc 20 (20)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000018
+val img 50 acc is : 000018
+val img 100 acc is : 000020
+val img 150 acc is : 000018
+val img 200 acc is : 000016
+valid acc 0.515557
+Epoch: [31][1/1000]	 Loss 1.079777 (1.079777)	 acc 22 (22)	
+Epoch: [31][51/1000]	 Loss 1.270144 (1.371614)	 acc 24 (20)	
+Epoch: [31][101/1000]	 Loss 1.550318 (1.321029)	 acc 16 (21)	
+Epoch: [31][151/1000]	 Loss 1.328529 (1.321450)	 acc 24 (20)	
+Epoch: [31][201/1000]	 Loss 1.028854 (1.329602)	 acc 21 (21)	
+Epoch: [31][251/1000]	 Loss 2.150114 (1.338084)	 acc 17 (20)	
+Epoch: [31][301/1000]	 Loss 1.633334 (1.335438)	 acc 20 (20)	
+Epoch: [31][351/1000]	 Loss 1.305391 (1.333804)	 acc 21 (21)	
+Epoch: [31][401/1000]	 Loss 1.545932 (1.344105)	 acc 22 (20)	
+Epoch: [31][451/1000]	 Loss 1.415753 (1.349561)	 acc 18 (20)	
+Epoch: [31][501/1000]	 Loss 2.206670 (1.348834)	 acc 14 (20)	
+Epoch: [31][551/1000]	 Loss 1.629353 (1.351146)	 acc 21 (20)	
+Epoch: [31][601/1000]	 Loss 1.125162 (1.349940)	 acc 22 (20)	
+Epoch: [31][651/1000]	 Loss 1.317373 (1.352360)	 acc 19 (20)	
+Epoch: [31][701/1000]	 Loss 1.168809 (1.352899)	 acc 22 (20)	
+Epoch: [31][751/1000]	 Loss 1.340437 (1.350235)	 acc 20 (20)	
+Epoch: [31][801/1000]	 Loss 1.999299 (1.349395)	 acc 15 (20)	
+Epoch: [31][851/1000]	 Loss 1.724944 (1.350490)	 acc 16 (20)	
+Epoch: [31][901/1000]	 Loss 0.839663 (1.352940)	 acc 24 (20)	
+Epoch: [31][951/1000]	 Loss 1.586456 (1.350116)	 acc 21 (20)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000015
+val img 50 acc is : 000021
+val img 100 acc is : 000020
+val img 150 acc is : 000017
+val img 200 acc is : 000014
+valid acc 0.511093
+Epoch: [32][1/1000]	 Loss 1.009938 (1.009938)	 acc 22 (22)	
+Epoch: [32][51/1000]	 Loss 1.283288 (1.310598)	 acc 21 (21)	
+Epoch: [32][101/1000]	 Loss 1.523174 (1.278871)	 acc 16 (21)	
+Epoch: [32][151/1000]	 Loss 1.312957 (1.288460)	 acc 22 (20)	
+Epoch: [32][201/1000]	 Loss 1.057079 (1.310100)	 acc 25 (20)	
+Epoch: [32][251/1000]	 Loss 2.298576 (1.327798)	 acc 17 (20)	
+Epoch: [32][301/1000]	 Loss 1.598518 (1.334939)	 acc 22 (20)	
+Epoch: [32][351/1000]	 Loss 1.405873 (1.341596)	 acc 20 (20)	
+Epoch: [32][401/1000]	 Loss 1.602497 (1.358485)	 acc 20 (20)	
+Epoch: [32][451/1000]	 Loss 1.621124 (1.365175)	 acc 18 (20)	
+Epoch: [32][501/1000]	 Loss 1.844401 (1.367224)	 acc 20 (20)	
+Epoch: [32][551/1000]	 Loss 1.704307 (1.367622)	 acc 19 (20)	
+Epoch: [32][601/1000]	 Loss 1.551823 (1.367349)	 acc 18 (20)	
+Epoch: [32][651/1000]	 Loss 1.259219 (1.370577)	 acc 19 (20)	
+Epoch: [32][701/1000]	 Loss 1.229250 (1.366544)	 acc 24 (20)	
+Epoch: [32][751/1000]	 Loss 1.297216 (1.364839)	 acc 21 (20)	
+Epoch: [32][801/1000]	 Loss 1.772495 (1.360893)	 acc 18 (20)	
+Epoch: [32][851/1000]	 Loss 1.661875 (1.362052)	 acc 18 (20)	
+Epoch: [32][901/1000]	 Loss 0.893377 (1.360889)	 acc 22 (20)	
+Epoch: [32][951/1000]	 Loss 1.428135 (1.357051)	 acc 20 (20)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000019
+val img 50 acc is : 000021
+val img 100 acc is : 000021
+val img 150 acc is : 000020
+val img 200 acc is : 000013
+valid acc 0.508793
+Epoch: [33][1/1000]	 Loss 1.056784 (1.056784)	 acc 21 (21)	
+Epoch: [33][51/1000]	 Loss 1.216277 (1.298438)	 acc 22 (21)	
+Epoch: [33][101/1000]	 Loss 1.342111 (1.260648)	 acc 18 (21)	
+Epoch: [33][151/1000]	 Loss 1.430003 (1.264223)	 acc 23 (21)	
+Epoch: [33][201/1000]	 Loss 0.925339 (1.281110)	 acc 26 (21)	
+Epoch: [33][251/1000]	 Loss 2.262206 (1.297516)	 acc 18 (20)	
+Epoch: [33][301/1000]	 Loss 1.658021 (1.284459)	 acc 19 (20)	
+Epoch: [33][351/1000]	 Loss 1.254269 (1.285308)	 acc 21 (21)	
+Epoch: [33][401/1000]	 Loss 1.358378 (1.291100)	 acc 20 (20)	
+Epoch: [33][451/1000]	 Loss 1.479245 (1.297956)	 acc 14 (20)	
+Epoch: [33][501/1000]	 Loss 1.755305 (1.295176)	 acc 19 (20)	
+Epoch: [33][551/1000]	 Loss 1.532104 (1.293897)	 acc 22 (20)	
+Epoch: [33][601/1000]	 Loss 1.111142 (1.293390)	 acc 21 (20)	
+Epoch: [33][651/1000]	 Loss 1.145725 (1.294975)	 acc 19 (20)	
+Epoch: [33][701/1000]	 Loss 1.175050 (1.295296)	 acc 23 (20)	
+Epoch: [33][751/1000]	 Loss 1.232092 (1.294503)	 acc 23 (20)	
+Epoch: [33][801/1000]	 Loss 1.841000 (1.294317)	 acc 17 (20)	
+Epoch: [33][851/1000]	 Loss 1.549495 (1.294847)	 acc 21 (20)	
+Epoch: [33][901/1000]	 Loss 0.718804 (1.295825)	 acc 26 (20)	
+Epoch: [33][951/1000]	 Loss 1.501834 (1.296390)	 acc 19 (20)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000019
+val img 100 acc is : 000020
+val img 150 acc is : 000019
+val img 200 acc is : 000014
+valid acc 0.506764
+Epoch: [34][1/1000]	 Loss 0.991954 (0.991954)	 acc 23 (23)	
+Epoch: [34][51/1000]	 Loss 1.236776 (1.233556)	 acc 24 (21)	
+Epoch: [34][101/1000]	 Loss 1.321093 (1.191000)	 acc 20 (21)	
+Epoch: [34][151/1000]	 Loss 1.400897 (1.212726)	 acc 20 (21)	
+Epoch: [34][201/1000]	 Loss 1.039159 (1.225366)	 acc 22 (21)	
+Epoch: [34][251/1000]	 Loss 2.056372 (1.234437)	 acc 17 (21)	
+Epoch: [34][301/1000]	 Loss 1.513409 (1.228477)	 acc 21 (21)	
+Epoch: [34][351/1000]	 Loss 1.284925 (1.227211)	 acc 19 (21)	
+Epoch: [34][401/1000]	 Loss 1.501043 (1.229545)	 acc 20 (21)	
+Epoch: [34][451/1000]	 Loss 1.487925 (1.235186)	 acc 17 (21)	
+Epoch: [34][501/1000]	 Loss 1.987545 (1.237407)	 acc 14 (21)	
+Epoch: [34][551/1000]	 Loss 1.521902 (1.249546)	 acc 21 (21)	
+Epoch: [34][601/1000]	 Loss 1.070596 (1.258197)	 acc 22 (21)	
+Epoch: [34][651/1000]	 Loss 1.161740 (1.262498)	 acc 21 (21)	
+Epoch: [34][701/1000]	 Loss 1.325330 (1.267235)	 acc 24 (21)	
+Epoch: [34][751/1000]	 Loss 1.378941 (1.266425)	 acc 19 (21)	
+Epoch: [34][801/1000]	 Loss 1.514374 (1.265208)	 acc 21 (21)	
+Epoch: [34][851/1000]	 Loss 1.486714 (1.264083)	 acc 18 (21)	
+Epoch: [34][901/1000]	 Loss 0.696675 (1.265975)	 acc 26 (21)	
+Epoch: [34][951/1000]	 Loss 1.496032 (1.263647)	 acc 20 (21)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000017
+val img 100 acc is : 000018
+val img 150 acc is : 000018
+val img 200 acc is : 000015
+valid acc 0.501623
+Epoch: [35][1/1000]	 Loss 1.079899 (1.079899)	 acc 20 (20)	
+Epoch: [35][51/1000]	 Loss 1.294636 (1.218586)	 acc 22 (21)	
+Epoch: [35][101/1000]	 Loss 1.541400 (1.175826)	 acc 19 (21)	
+Epoch: [35][151/1000]	 Loss 1.231885 (1.188997)	 acc 23 (21)	
+Epoch: [35][201/1000]	 Loss 1.166963 (1.190795)	 acc 23 (21)	
+Epoch: [35][251/1000]	 Loss 1.965945 (1.204903)	 acc 19 (21)	
+Epoch: [35][301/1000]	 Loss 1.275446 (1.194374)	 acc 21 (21)	
+Epoch: [35][351/1000]	 Loss 1.198442 (1.190298)	 acc 22 (21)	
+Epoch: [35][401/1000]	 Loss 1.339604 (1.199529)	 acc 21 (21)	
+Epoch: [35][451/1000]	 Loss 1.389054 (1.210997)	 acc 20 (21)	
+Epoch: [35][501/1000]	 Loss 1.718535 (1.214898)	 acc 17 (21)	
+Epoch: [35][551/1000]	 Loss 1.382866 (1.219360)	 acc 21 (21)	
+Epoch: [35][601/1000]	 Loss 1.231550 (1.223320)	 acc 23 (21)	
+Epoch: [35][651/1000]	 Loss 0.959248 (1.224236)	 acc 23 (21)	
+Epoch: [35][701/1000]	 Loss 1.084573 (1.224035)	 acc 25 (21)	
+Epoch: [35][751/1000]	 Loss 1.136982 (1.223028)	 acc 24 (21)	
+Epoch: [35][801/1000]	 Loss 1.588720 (1.222553)	 acc 20 (21)	
+Epoch: [35][851/1000]	 Loss 1.326237 (1.221112)	 acc 21 (21)	
+Epoch: [35][901/1000]	 Loss 0.796991 (1.221573)	 acc 26 (21)	
+Epoch: [35][951/1000]	 Loss 1.346947 (1.221174)	 acc 21 (21)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000013
+val img 50 acc is : 000020
+val img 100 acc is : 000019
+val img 150 acc is : 000018
+val img 200 acc is : 000013
+valid acc 0.511634
+Epoch: [36][1/1000]	 Loss 0.953425 (0.953425)	 acc 23 (23)	
+Epoch: [36][51/1000]	 Loss 1.092460 (1.156927)	 acc 23 (22)	
+Epoch: [36][101/1000]	 Loss 1.355403 (1.123977)	 acc 20 (22)	
+Epoch: [36][151/1000]	 Loss 1.250358 (1.143387)	 acc 23 (22)	
+Epoch: [36][201/1000]	 Loss 0.858858 (1.147185)	 acc 24 (21)	
+Epoch: [36][251/1000]	 Loss 2.039652 (1.161069)	 acc 17 (21)	
+Epoch: [36][301/1000]	 Loss 1.328784 (1.153156)	 acc 22 (21)	
+Epoch: [36][351/1000]	 Loss 1.290133 (1.153499)	 acc 20 (21)	
+Epoch: [36][401/1000]	 Loss 1.419964 (1.155433)	 acc 20 (21)	
+Epoch: [36][451/1000]	 Loss 1.302025 (1.160372)	 acc 17 (21)	
+Epoch: [36][501/1000]	 Loss 1.718564 (1.163692)	 acc 18 (21)	
+Epoch: [36][551/1000]	 Loss 1.178023 (1.164704)	 acc 23 (21)	
+Epoch: [36][601/1000]	 Loss 1.174294 (1.167616)	 acc 20 (21)	
+Epoch: [36][651/1000]	 Loss 0.981282 (1.170618)	 acc 23 (21)	
+Epoch: [36][701/1000]	 Loss 1.097723 (1.173251)	 acc 24 (21)	
+Epoch: [36][751/1000]	 Loss 1.462527 (1.170983)	 acc 23 (21)	
+Epoch: [36][801/1000]	 Loss 1.455342 (1.172162)	 acc 20 (21)	
+Epoch: [36][851/1000]	 Loss 1.310624 (1.170906)	 acc 21 (21)	
+Epoch: [36][901/1000]	 Loss 0.645762 (1.172668)	 acc 27 (21)	
+Epoch: [36][951/1000]	 Loss 1.355774 (1.172470)	 acc 18 (21)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000013
+val img 50 acc is : 000019
+val img 100 acc is : 000020
+val img 150 acc is : 000019
+val img 200 acc is : 000015
+valid acc 0.505817
+Epoch: [37][1/1000]	 Loss 0.999103 (0.999103)	 acc 20 (20)	
+Epoch: [37][51/1000]	 Loss 1.172294 (1.132942)	 acc 23 (21)	
+Epoch: [37][101/1000]	 Loss 1.320310 (1.100572)	 acc 18 (22)	
+Epoch: [37][151/1000]	 Loss 1.247630 (1.113515)	 acc 23 (22)	
+Epoch: [37][201/1000]	 Loss 0.855486 (1.127674)	 acc 26 (22)	
+Epoch: [37][251/1000]	 Loss 1.825293 (1.128641)	 acc 18 (22)	
+Epoch: [37][301/1000]	 Loss 1.421779 (1.117653)	 acc 18 (22)	
+Epoch: [37][351/1000]	 Loss 1.195616 (1.113462)	 acc 22 (22)	
+Epoch: [37][401/1000]	 Loss 1.226460 (1.118099)	 acc 22 (22)	
+Epoch: [37][451/1000]	 Loss 1.397384 (1.122290)	 acc 15 (22)	
+Epoch: [37][501/1000]	 Loss 1.823482 (1.127472)	 acc 18 (22)	
+Epoch: [37][551/1000]	 Loss 1.300424 (1.131085)	 acc 23 (22)	
+Epoch: [37][601/1000]	 Loss 1.125772 (1.139725)	 acc 22 (21)	
+Epoch: [37][651/1000]	 Loss 0.833235 (1.143457)	 acc 24 (21)	
+Epoch: [37][701/1000]	 Loss 0.949847 (1.145592)	 acc 24 (21)	
+Epoch: [37][751/1000]	 Loss 1.189178 (1.142187)	 acc 24 (21)	
+Epoch: [37][801/1000]	 Loss 1.640603 (1.142985)	 acc 18 (21)	
+Epoch: [37][851/1000]	 Loss 1.208945 (1.142289)	 acc 23 (21)	
+Epoch: [37][901/1000]	 Loss 0.661865 (1.139619)	 acc 26 (21)	
+Epoch: [37][951/1000]	 Loss 1.368861 (1.140023)	 acc 22 (21)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000017
+val img 50 acc is : 000020
+val img 100 acc is : 000020
+val img 150 acc is : 000019
+val img 200 acc is : 000013
+valid acc 0.505952
+Epoch: [38][1/1000]	 Loss 0.971074 (0.971074)	 acc 21 (21)	
+Epoch: [38][51/1000]	 Loss 1.151044 (1.101039)	 acc 24 (22)	
+Epoch: [38][101/1000]	 Loss 1.250201 (1.075764)	 acc 19 (22)	
+Epoch: [38][151/1000]	 Loss 1.244557 (1.076709)	 acc 22 (22)	
+Epoch: [38][201/1000]	 Loss 0.677788 (1.076091)	 acc 28 (22)	
+Epoch: [38][251/1000]	 Loss 1.807599 (1.090118)	 acc 20 (22)	
+Epoch: [38][301/1000]	 Loss 1.309173 (1.086712)	 acc 20 (22)	
+Epoch: [38][351/1000]	 Loss 1.285767 (1.083823)	 acc 23 (22)	
+Epoch: [38][401/1000]	 Loss 1.317812 (1.087679)	 acc 22 (22)	
+Epoch: [38][451/1000]	 Loss 1.234301 (1.086538)	 acc 21 (22)	
+Epoch: [38][501/1000]	 Loss 1.544888 (1.091750)	 acc 19 (22)	
+Epoch: [38][551/1000]	 Loss 1.518283 (1.097271)	 acc 21 (22)	
+Epoch: [38][601/1000]	 Loss 1.129159 (1.103775)	 acc 25 (22)	
+Epoch: [38][651/1000]	 Loss 0.965226 (1.109316)	 acc 22 (22)	
+Epoch: [38][701/1000]	 Loss 0.916593 (1.110356)	 acc 23 (22)	
+Epoch: [38][751/1000]	 Loss 1.066025 (1.107537)	 acc 26 (22)	
+Epoch: [38][801/1000]	 Loss 1.429645 (1.107317)	 acc 20 (22)	
+Epoch: [38][851/1000]	 Loss 1.440051 (1.109776)	 acc 19 (22)	
+Epoch: [38][901/1000]	 Loss 0.767582 (1.110714)	 acc 27 (22)	
+Epoch: [38][951/1000]	 Loss 1.351674 (1.111632)	 acc 22 (22)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000017
+val img 50 acc is : 000019
+val img 100 acc is : 000019
+val img 150 acc is : 000018
+val img 200 acc is : 000014
+valid acc 0.500947
+Epoch: [39][1/1000]	 Loss 0.892400 (0.892400)	 acc 25 (25)	
+Epoch: [39][51/1000]	 Loss 1.192140 (1.038982)	 acc 21 (22)	
+Epoch: [39][101/1000]	 Loss 1.178620 (1.015873)	 acc 19 (22)	
+Epoch: [39][151/1000]	 Loss 1.027703 (1.009953)	 acc 25 (22)	
+Epoch: [39][201/1000]	 Loss 0.759919 (1.025069)	 acc 27 (22)	
+Epoch: [39][251/1000]	 Loss 1.737342 (1.037812)	 acc 19 (22)	
+Epoch: [39][301/1000]	 Loss 1.123125 (1.033835)	 acc 22 (22)	
+Epoch: [39][351/1000]	 Loss 1.099715 (1.035091)	 acc 22 (22)	
+Epoch: [39][401/1000]	 Loss 1.266657 (1.047934)	 acc 22 (22)	
+Epoch: [39][451/1000]	 Loss 1.248458 (1.056881)	 acc 21 (22)	
+Epoch: [39][501/1000]	 Loss 2.038522 (1.062162)	 acc 15 (22)	
+Epoch: [39][551/1000]	 Loss 1.220463 (1.070568)	 acc 22 (22)	
+Epoch: [39][601/1000]	 Loss 1.279245 (1.077649)	 acc 19 (22)	
+Epoch: [39][651/1000]	 Loss 1.161660 (1.089108)	 acc 21 (22)	
+Epoch: [39][701/1000]	 Loss 1.179597 (1.092643)	 acc 23 (22)	
+Epoch: [39][751/1000]	 Loss 1.176998 (1.091219)	 acc 23 (22)	
+Epoch: [39][801/1000]	 Loss 1.420450 (1.091109)	 acc 21 (22)	
+Epoch: [39][851/1000]	 Loss 1.230913 (1.091603)	 acc 22 (22)	
+Epoch: [39][901/1000]	 Loss 0.638146 (1.091128)	 acc 28 (22)	
+Epoch: [39][951/1000]	 Loss 1.354427 (1.091756)	 acc 22 (22)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000017
+val img 50 acc is : 000019
+val img 100 acc is : 000018
+val img 150 acc is : 000019
+val img 200 acc is : 000015
+valid acc 0.511499
+Epoch: [40][1/1000]	 Loss 0.843174 (0.843174)	 acc 23 (23)	
+Epoch: [40][51/1000]	 Loss 1.025044 (0.972199)	 acc 25 (23)	
+Epoch: [40][101/1000]	 Loss 1.128716 (0.973244)	 acc 23 (23)	
+Epoch: [40][151/1000]	 Loss 1.253069 (0.990193)	 acc 23 (23)	
+Epoch: [40][201/1000]	 Loss 0.780023 (1.016242)	 acc 25 (23)	
+Epoch: [40][251/1000]	 Loss 1.766622 (1.031618)	 acc 17 (22)	
+Epoch: [40][301/1000]	 Loss 1.156333 (1.028841)	 acc 20 (22)	
+Epoch: [40][351/1000]	 Loss 1.018892 (1.028083)	 acc 23 (22)	
+Epoch: [40][401/1000]	 Loss 1.144612 (1.033209)	 acc 22 (22)	
+Epoch: [40][451/1000]	 Loss 1.224218 (1.040029)	 acc 20 (22)	
+Epoch: [40][501/1000]	 Loss 1.719266 (1.040996)	 acc 17 (22)	
+Epoch: [40][551/1000]	 Loss 1.324160 (1.048437)	 acc 21 (22)	
+Epoch: [40][601/1000]	 Loss 1.093274 (1.057752)	 acc 23 (22)	
+Epoch: [40][651/1000]	 Loss 0.858927 (1.067116)	 acc 24 (22)	
+Epoch: [40][701/1000]	 Loss 0.810122 (1.068448)	 acc 25 (22)	
+Epoch: [40][751/1000]	 Loss 1.165514 (1.067973)	 acc 24 (22)	
+Epoch: [40][801/1000]	 Loss 1.201384 (1.069337)	 acc 20 (22)	
+Epoch: [40][851/1000]	 Loss 1.459867 (1.068027)	 acc 21 (22)	
+Epoch: [40][901/1000]	 Loss 0.512215 (1.068669)	 acc 29 (22)	
+Epoch: [40][951/1000]	 Loss 1.368050 (1.066122)	 acc 20 (22)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000014
+val img 50 acc is : 000016
+val img 100 acc is : 000019
+val img 150 acc is : 000016
+val img 200 acc is : 000014
+valid acc 0.518804
+Epoch: [41][1/1000]	 Loss 0.933338 (0.933338)	 acc 19 (19)	
+Epoch: [41][51/1000]	 Loss 1.099816 (0.955515)	 acc 22 (23)	
+Epoch: [41][101/1000]	 Loss 1.219173 (0.950671)	 acc 19 (23)	
+Epoch: [41][151/1000]	 Loss 1.060247 (0.950984)	 acc 22 (23)	
+Epoch: [41][201/1000]	 Loss 0.945459 (0.969868)	 acc 26 (23)	
+Epoch: [41][251/1000]	 Loss 1.585208 (0.987616)	 acc 19 (23)	
+Epoch: [41][301/1000]	 Loss 0.872200 (0.980424)	 acc 22 (23)	
+Epoch: [41][351/1000]	 Loss 0.895918 (0.980628)	 acc 22 (23)	
+Epoch: [41][401/1000]	 Loss 1.057301 (0.991768)	 acc 23 (23)	
+Epoch: [41][451/1000]	 Loss 1.182864 (0.998248)	 acc 22 (23)	
+Epoch: [41][501/1000]	 Loss 1.497913 (1.000014)	 acc 17 (23)	
+Epoch: [41][551/1000]	 Loss 0.919270 (1.002401)	 acc 25 (23)	
+Epoch: [41][601/1000]	 Loss 0.883440 (1.006040)	 acc 25 (22)	
+Epoch: [41][651/1000]	 Loss 0.830409 (1.014990)	 acc 25 (22)	
+Epoch: [41][701/1000]	 Loss 0.844634 (1.019960)	 acc 24 (22)	
+Epoch: [41][751/1000]	 Loss 1.138290 (1.019319)	 acc 25 (22)	
+Epoch: [41][801/1000]	 Loss 1.349340 (1.022295)	 acc 19 (22)	
+Epoch: [41][851/1000]	 Loss 1.083543 (1.023100)	 acc 22 (22)	
+Epoch: [41][901/1000]	 Loss 0.512838 (1.021979)	 acc 28 (22)	
+Epoch: [41][951/1000]	 Loss 1.233872 (1.019750)	 acc 20 (22)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000015
+val img 50 acc is : 000018
+val img 100 acc is : 000020
+val img 150 acc is : 000019
+val img 200 acc is : 000017
+valid acc 0.514610
+Epoch: [42][1/1000]	 Loss 0.727578 (0.727578)	 acc 22 (22)	
+Epoch: [42][51/1000]	 Loss 1.295757 (0.904730)	 acc 20 (23)	
+Epoch: [42][101/1000]	 Loss 1.243678 (0.950763)	 acc 21 (23)	
+Epoch: [42][151/1000]	 Loss 1.013153 (0.949579)	 acc 24 (23)	
+Epoch: [42][201/1000]	 Loss 0.743235 (0.954590)	 acc 24 (23)	
+Epoch: [42][251/1000]	 Loss 1.485425 (0.967821)	 acc 21 (23)	
+Epoch: [42][301/1000]	 Loss 1.111368 (0.956525)	 acc 21 (23)	
+Epoch: [42][351/1000]	 Loss 1.039829 (0.951998)	 acc 21 (23)	
+Epoch: [42][401/1000]	 Loss 1.346075 (0.962986)	 acc 20 (23)	
+Epoch: [42][451/1000]	 Loss 1.075985 (0.974773)	 acc 21 (23)	
+Epoch: [42][501/1000]	 Loss 1.394490 (0.980056)	 acc 19 (23)	
+Epoch: [42][551/1000]	 Loss 1.024530 (0.986472)	 acc 24 (23)	
+Epoch: [42][601/1000]	 Loss 1.078681 (0.994783)	 acc 21 (22)	
+Epoch: [42][651/1000]	 Loss 0.795745 (1.006276)	 acc 23 (22)	
+Epoch: [42][701/1000]	 Loss 0.777649 (1.009780)	 acc 25 (22)	
+Epoch: [42][751/1000]	 Loss 1.088144 (1.010697)	 acc 23 (22)	
+Epoch: [42][801/1000]	 Loss 1.335899 (1.011439)	 acc 21 (22)	
+Epoch: [42][851/1000]	 Loss 1.238681 (1.013546)	 acc 21 (22)	
+Epoch: [42][901/1000]	 Loss 0.430966 (1.014193)	 acc 30 (22)	
+Epoch: [42][951/1000]	 Loss 1.018412 (1.012567)	 acc 24 (22)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000015
+val img 50 acc is : 000017
+val img 100 acc is : 000019
+val img 150 acc is : 000017
+val img 200 acc is : 000016
+valid acc 0.513799
+Epoch: [43][1/1000]	 Loss 0.743426 (0.743426)	 acc 24 (24)	
+Epoch: [43][51/1000]	 Loss 0.872700 (0.881182)	 acc 26 (23)	
+Epoch: [43][101/1000]	 Loss 1.228967 (0.887433)	 acc 20 (23)	
+Epoch: [43][151/1000]	 Loss 1.029425 (0.912035)	 acc 24 (23)	
+Epoch: [43][201/1000]	 Loss 0.753391 (0.928515)	 acc 23 (23)	
+Epoch: [43][251/1000]	 Loss 1.609139 (0.946335)	 acc 18 (23)	
+Epoch: [43][301/1000]	 Loss 1.049412 (0.936334)	 acc 20 (23)	
+Epoch: [43][351/1000]	 Loss 1.028723 (0.932161)	 acc 21 (23)	
+Epoch: [43][401/1000]	 Loss 1.349227 (0.942970)	 acc 20 (23)	
+Epoch: [43][451/1000]	 Loss 1.278710 (0.954145)	 acc 19 (23)	
+Epoch: [43][501/1000]	 Loss 1.535043 (0.958297)	 acc 20 (23)	
+Epoch: [43][551/1000]	 Loss 1.176400 (0.964707)	 acc 22 (23)	
+Epoch: [43][601/1000]	 Loss 0.868430 (0.969569)	 acc 22 (23)	
+Epoch: [43][651/1000]	 Loss 0.797460 (0.977740)	 acc 24 (23)	
+Epoch: [43][701/1000]	 Loss 0.662665 (0.978645)	 acc 27 (23)	
+Epoch: [43][751/1000]	 Loss 1.087736 (0.980660)	 acc 23 (23)	
+Epoch: [43][801/1000]	 Loss 1.279933 (0.982020)	 acc 24 (23)	
+Epoch: [43][851/1000]	 Loss 1.185787 (0.986806)	 acc 23 (23)	
+Epoch: [43][901/1000]	 Loss 0.419893 (0.990279)	 acc 29 (23)	
+Epoch: [43][951/1000]	 Loss 1.136366 (0.988399)	 acc 22 (23)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000021
+val img 100 acc is : 000018
+val img 150 acc is : 000016
+val img 200 acc is : 000013
+valid acc 0.507170
+Epoch: [44][1/1000]	 Loss 0.753991 (0.753991)	 acc 22 (22)	
+Epoch: [44][51/1000]	 Loss 0.966478 (0.939029)	 acc 25 (23)	
+Epoch: [44][101/1000]	 Loss 1.160363 (0.936279)	 acc 21 (23)	
+Epoch: [44][151/1000]	 Loss 0.925696 (0.945307)	 acc 23 (23)	
+Epoch: [44][201/1000]	 Loss 0.657891 (0.949992)	 acc 27 (23)	
+Epoch: [44][251/1000]	 Loss 1.392865 (0.956574)	 acc 19 (23)	
+Epoch: [44][301/1000]	 Loss 0.843556 (0.939743)	 acc 21 (23)	
+Epoch: [44][351/1000]	 Loss 1.237832 (0.927869)	 acc 18 (23)	
+Epoch: [44][401/1000]	 Loss 1.149834 (0.942310)	 acc 23 (23)	
+Epoch: [44][451/1000]	 Loss 1.225984 (0.947332)	 acc 20 (23)	
+Epoch: [44][501/1000]	 Loss 1.436360 (0.944142)	 acc 20 (23)	
+Epoch: [44][551/1000]	 Loss 1.108443 (0.951712)	 acc 22 (23)	
+Epoch: [44][601/1000]	 Loss 0.994454 (0.957244)	 acc 24 (23)	
+Epoch: [44][651/1000]	 Loss 0.956806 (0.968950)	 acc 20 (23)	
+Epoch: [44][701/1000]	 Loss 0.701923 (0.973555)	 acc 25 (23)	
+Epoch: [44][751/1000]	 Loss 1.017263 (0.972916)	 acc 23 (23)	
+Epoch: [44][801/1000]	 Loss 1.260877 (0.972473)	 acc 22 (23)	
+Epoch: [44][851/1000]	 Loss 1.086945 (0.971340)	 acc 23 (23)	
+Epoch: [44][901/1000]	 Loss 0.601160 (0.971891)	 acc 27 (23)	
+Epoch: [44][951/1000]	 Loss 1.021175 (0.973000)	 acc 22 (23)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000020
+val img 100 acc is : 000020
+val img 150 acc is : 000017
+val img 200 acc is : 000018
+valid acc 0.515828
+Epoch: [45][1/1000]	 Loss 0.755155 (0.755155)	 acc 23 (23)	
+Epoch: [45][51/1000]	 Loss 0.926870 (0.817389)	 acc 25 (24)	
+Epoch: [45][101/1000]	 Loss 0.993990 (0.833557)	 acc 23 (24)	
+Epoch: [45][151/1000]	 Loss 0.912101 (0.852178)	 acc 24 (24)	
+Epoch: [45][201/1000]	 Loss 0.726308 (0.866989)	 acc 27 (24)	
+Epoch: [45][251/1000]	 Loss 1.350282 (0.888482)	 acc 22 (23)	
+Epoch: [45][301/1000]	 Loss 0.825255 (0.878142)	 acc 22 (24)	
+Epoch: [45][351/1000]	 Loss 0.999934 (0.875964)	 acc 21 (24)	
+Epoch: [45][401/1000]	 Loss 1.375992 (0.888088)	 acc 22 (24)	
+Epoch: [45][451/1000]	 Loss 1.097511 (0.899971)	 acc 19 (23)	
+Epoch: [45][501/1000]	 Loss 1.360978 (0.907249)	 acc 21 (23)	
+Epoch: [45][551/1000]	 Loss 0.978793 (0.914103)	 acc 24 (23)	
+Epoch: [45][601/1000]	 Loss 0.879196 (0.918545)	 acc 22 (23)	
+Epoch: [45][651/1000]	 Loss 0.918791 (0.925309)	 acc 19 (23)	
+Epoch: [45][701/1000]	 Loss 0.711688 (0.924867)	 acc 24 (23)	
+Epoch: [45][751/1000]	 Loss 0.931798 (0.925503)	 acc 25 (23)	
+Epoch: [45][801/1000]	 Loss 1.130970 (0.927641)	 acc 24 (23)	
+Epoch: [45][851/1000]	 Loss 1.164121 (0.929852)	 acc 21 (23)	
+Epoch: [45][901/1000]	 Loss 0.680256 (0.931506)	 acc 26 (23)	
+Epoch: [45][951/1000]	 Loss 1.022471 (0.931496)	 acc 22 (23)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000021
+val img 100 acc is : 000020
+val img 150 acc is : 000018
+val img 200 acc is : 000019
+valid acc 0.518804
+Epoch: [46][1/1000]	 Loss 0.652360 (0.652360)	 acc 24 (24)	
+Epoch: [46][51/1000]	 Loss 0.855989 (0.800317)	 acc 27 (24)	
+Epoch: [46][101/1000]	 Loss 1.184582 (0.813898)	 acc 22 (24)	
+Epoch: [46][151/1000]	 Loss 0.978385 (0.867815)	 acc 23 (24)	
+Epoch: [46][201/1000]	 Loss 0.651553 (0.893525)	 acc 26 (24)	
+Epoch: [46][251/1000]	 Loss 1.418146 (0.917649)	 acc 19 (23)	
+Epoch: [46][301/1000]	 Loss 0.897284 (0.900996)	 acc 22 (23)	
+Epoch: [46][351/1000]	 Loss 1.075704 (0.898427)	 acc 19 (23)	
+Epoch: [46][401/1000]	 Loss 1.338147 (0.904371)	 acc 21 (23)	
+Epoch: [46][451/1000]	 Loss 1.175210 (0.916205)	 acc 20 (23)	
+Epoch: [46][501/1000]	 Loss 1.449928 (0.918347)	 acc 18 (23)	
+Epoch: [46][551/1000]	 Loss 0.831074 (0.918686)	 acc 29 (23)	
+Epoch: [46][601/1000]	 Loss 0.943331 (0.922447)	 acc 23 (23)	
+Epoch: [46][651/1000]	 Loss 0.874721 (0.927988)	 acc 25 (23)	
+Epoch: [46][701/1000]	 Loss 0.942370 (0.927460)	 acc 25 (23)	
+Epoch: [46][751/1000]	 Loss 0.939468 (0.924947)	 acc 23 (23)	
+Epoch: [46][801/1000]	 Loss 1.330610 (0.923416)	 acc 21 (23)	
+Epoch: [46][851/1000]	 Loss 1.099044 (0.923700)	 acc 22 (23)	
+Epoch: [46][901/1000]	 Loss 0.374860 (0.921562)	 acc 29 (23)	
+Epoch: [46][951/1000]	 Loss 1.196382 (0.919371)	 acc 20 (23)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000017
+val img 50 acc is : 000018
+val img 100 acc is : 000020
+val img 150 acc is : 000017
+val img 200 acc is : 000014
+valid acc 0.511905
+Epoch: [47][1/1000]	 Loss 0.914723 (0.914723)	 acc 24 (24)	
+Epoch: [47][51/1000]	 Loss 0.838374 (0.822414)	 acc 25 (24)	
+Epoch: [47][101/1000]	 Loss 0.820690 (0.810960)	 acc 25 (24)	
+Epoch: [47][151/1000]	 Loss 0.781603 (0.815066)	 acc 24 (24)	
+Epoch: [47][201/1000]	 Loss 0.628765 (0.817004)	 acc 26 (24)	
+Epoch: [47][251/1000]	 Loss 1.462981 (0.838541)	 acc 19 (24)	
+Epoch: [47][301/1000]	 Loss 0.621927 (0.825553)	 acc 27 (24)	
+Epoch: [47][351/1000]	 Loss 0.774467 (0.825847)	 acc 24 (24)	
+Epoch: [47][401/1000]	 Loss 1.075100 (0.835968)	 acc 25 (24)	
+Epoch: [47][451/1000]	 Loss 1.178781 (0.840873)	 acc 21 (24)	
+Epoch: [47][501/1000]	 Loss 0.962462 (0.844642)	 acc 26 (24)	
+Epoch: [47][551/1000]	 Loss 0.972844 (0.851052)	 acc 21 (24)	
+Epoch: [47][601/1000]	 Loss 0.854251 (0.853972)	 acc 23 (24)	
+Epoch: [47][651/1000]	 Loss 0.869204 (0.861372)	 acc 23 (24)	
+Epoch: [47][701/1000]	 Loss 0.660067 (0.867984)	 acc 27 (24)	
+Epoch: [47][751/1000]	 Loss 0.958250 (0.873719)	 acc 24 (23)	
+Epoch: [47][801/1000]	 Loss 0.971683 (0.875063)	 acc 24 (23)	
+Epoch: [47][851/1000]	 Loss 1.141435 (0.877666)	 acc 23 (23)	
+Epoch: [47][901/1000]	 Loss 0.619926 (0.878518)	 acc 25 (23)	
+Epoch: [47][951/1000]	 Loss 0.950446 (0.878189)	 acc 22 (23)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000015
+val img 50 acc is : 000018
+val img 100 acc is : 000019
+val img 150 acc is : 000014
+val img 200 acc is : 000013
+valid acc 0.498241
+Epoch: [48][1/1000]	 Loss 0.810651 (0.810651)	 acc 21 (21)	
+Epoch: [48][51/1000]	 Loss 0.854260 (0.794131)	 acc 25 (24)	
+Epoch: [48][101/1000]	 Loss 0.960606 (0.783938)	 acc 23 (24)	
+Epoch: [48][151/1000]	 Loss 0.688565 (0.787333)	 acc 23 (24)	
+Epoch: [48][201/1000]	 Loss 0.729915 (0.796027)	 acc 25 (24)	
+Epoch: [48][251/1000]	 Loss 1.304550 (0.812728)	 acc 20 (24)	
+Epoch: [48][301/1000]	 Loss 0.757986 (0.799438)	 acc 25 (24)	
+Epoch: [48][351/1000]	 Loss 0.973925 (0.798519)	 acc 26 (24)	
+Epoch: [48][401/1000]	 Loss 1.008272 (0.808163)	 acc 23 (24)	
+Epoch: [48][451/1000]	 Loss 1.126046 (0.820143)	 acc 20 (24)	
+Epoch: [48][501/1000]	 Loss 1.269500 (0.825696)	 acc 20 (24)	
+Epoch: [48][551/1000]	 Loss 0.943065 (0.826216)	 acc 24 (24)	
+Epoch: [48][601/1000]	 Loss 0.825618 (0.829734)	 acc 24 (24)	
+Epoch: [48][651/1000]	 Loss 0.797203 (0.832508)	 acc 24 (24)	
+Epoch: [48][701/1000]	 Loss 0.592091 (0.835093)	 acc 26 (24)	
+Epoch: [48][751/1000]	 Loss 0.947892 (0.836125)	 acc 22 (24)	
+Epoch: [48][801/1000]	 Loss 1.135245 (0.837743)	 acc 21 (24)	
+Epoch: [48][851/1000]	 Loss 0.974959 (0.842391)	 acc 25 (24)	
+Epoch: [48][901/1000]	 Loss 0.482260 (0.844396)	 acc 27 (24)	
+Epoch: [48][951/1000]	 Loss 0.997442 (0.844797)	 acc 23 (24)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000015
+val img 50 acc is : 000018
+val img 100 acc is : 000021
+val img 150 acc is : 000017
+val img 200 acc is : 000016
+valid acc 0.514069
+Epoch: [49][1/1000]	 Loss 0.704206 (0.704206)	 acc 23 (23)	
+Epoch: [49][51/1000]	 Loss 0.893508 (0.735886)	 acc 24 (25)	
+Epoch: [49][101/1000]	 Loss 0.697468 (0.733675)	 acc 24 (25)	
+Epoch: [49][151/1000]	 Loss 0.881293 (0.750954)	 acc 23 (25)	
+Epoch: [49][201/1000]	 Loss 0.572851 (0.754919)	 acc 27 (25)	
+Epoch: [49][251/1000]	 Loss 0.987387 (0.773029)	 acc 20 (25)	
+Epoch: [49][301/1000]	 Loss 0.718093 (0.766621)	 acc 24 (25)	
+Epoch: [49][351/1000]	 Loss 0.900299 (0.770338)	 acc 25 (25)	
+Epoch: [49][401/1000]	 Loss 0.983619 (0.776925)	 acc 23 (24)	
+Epoch: [49][451/1000]	 Loss 1.031351 (0.782381)	 acc 21 (24)	
+Epoch: [49][501/1000]	 Loss 0.939063 (0.785927)	 acc 22 (24)	
+Epoch: [49][551/1000]	 Loss 0.654558 (0.787941)	 acc 25 (24)	
+Epoch: [49][601/1000]	 Loss 0.668910 (0.792229)	 acc 28 (24)	
+Epoch: [49][651/1000]	 Loss 0.776574 (0.796810)	 acc 24 (24)	
+Epoch: [49][701/1000]	 Loss 0.569987 (0.797633)	 acc 25 (24)	
+Epoch: [49][751/1000]	 Loss 0.938969 (0.801289)	 acc 22 (24)	
+Epoch: [49][801/1000]	 Loss 0.881322 (0.802631)	 acc 26 (24)	
+Epoch: [49][851/1000]	 Loss 1.066600 (0.804982)	 acc 23 (24)	
+Epoch: [49][901/1000]	 Loss 0.716943 (0.807371)	 acc 25 (24)	
+Epoch: [49][951/1000]	 Loss 0.850454 (0.805123)	 acc 23 (24)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000019
+val img 100 acc is : 000020
+val img 150 acc is : 000019
+val img 200 acc is : 000016
+valid acc 0.506629
+Epoch: [50][1/1000]	 Loss 0.721002 (0.721002)	 acc 23 (23)	
+Epoch: [50][51/1000]	 Loss 0.790622 (0.725909)	 acc 25 (25)	
+Epoch: [50][101/1000]	 Loss 1.060089 (0.720206)	 acc 22 (25)	
+Epoch: [50][151/1000]	 Loss 0.719054 (0.744231)	 acc 25 (25)	
+Epoch: [50][201/1000]	 Loss 0.377834 (0.746978)	 acc 30 (25)	
+Epoch: [50][251/1000]	 Loss 1.098743 (0.752323)	 acc 23 (25)	
+Epoch: [50][301/1000]	 Loss 0.723092 (0.745808)	 acc 23 (25)	
+Epoch: [50][351/1000]	 Loss 0.877610 (0.744003)	 acc 25 (25)	
+Epoch: [50][401/1000]	 Loss 0.772460 (0.751516)	 acc 25 (25)	
+Epoch: [50][451/1000]	 Loss 1.065353 (0.759179)	 acc 17 (25)	
+Epoch: [50][501/1000]	 Loss 1.034093 (0.761272)	 acc 25 (24)	
+Epoch: [50][551/1000]	 Loss 0.680634 (0.764208)	 acc 26 (24)	
+Epoch: [50][601/1000]	 Loss 0.692756 (0.768182)	 acc 27 (24)	
+Epoch: [50][651/1000]	 Loss 0.677326 (0.772002)	 acc 24 (24)	
+Epoch: [50][701/1000]	 Loss 0.710339 (0.776309)	 acc 27 (24)	
+Epoch: [50][751/1000]	 Loss 0.867465 (0.777803)	 acc 25 (24)	
+Epoch: [50][801/1000]	 Loss 0.922595 (0.779396)	 acc 22 (24)	
+Epoch: [50][851/1000]	 Loss 1.009213 (0.783580)	 acc 23 (24)	
+Epoch: [50][901/1000]	 Loss 0.440616 (0.784813)	 acc 28 (24)	
+Epoch: [50][951/1000]	 Loss 0.916611 (0.782707)	 acc 23 (24)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000014
+val img 50 acc is : 000018
+val img 100 acc is : 000020
+val img 150 acc is : 000014
+val img 200 acc is : 000016
+valid acc 0.514205
+Epoch: [51][1/1000]	 Loss 0.714362 (0.714362)	 acc 24 (24)	
+Epoch: [51][51/1000]	 Loss 0.821145 (0.702062)	 acc 25 (25)	
+Epoch: [51][101/1000]	 Loss 0.980266 (0.700752)	 acc 20 (25)	
+Epoch: [51][151/1000]	 Loss 0.774842 (0.721342)	 acc 25 (25)	
+Epoch: [51][201/1000]	 Loss 0.445735 (0.719595)	 acc 28 (25)	
+Epoch: [51][251/1000]	 Loss 1.046608 (0.723978)	 acc 20 (25)	
+Epoch: [51][301/1000]	 Loss 0.586687 (0.719267)	 acc 27 (25)	
+Epoch: [51][351/1000]	 Loss 0.921541 (0.719590)	 acc 24 (25)	
+Epoch: [51][401/1000]	 Loss 0.827883 (0.728838)	 acc 25 (25)	
+Epoch: [51][451/1000]	 Loss 1.053576 (0.738321)	 acc 18 (25)	
+Epoch: [51][501/1000]	 Loss 1.186021 (0.746312)	 acc 24 (25)	
+Epoch: [51][551/1000]	 Loss 0.860603 (0.757035)	 acc 22 (25)	
+Epoch: [51][601/1000]	 Loss 0.940711 (0.755452)	 acc 25 (25)	
+Epoch: [51][651/1000]	 Loss 0.725817 (0.754547)	 acc 27 (25)	
+Epoch: [51][701/1000]	 Loss 0.482100 (0.754624)	 acc 25 (25)	
+Epoch: [51][751/1000]	 Loss 0.811132 (0.754063)	 acc 25 (25)	
+Epoch: [51][801/1000]	 Loss 0.971023 (0.754225)	 acc 21 (25)	
+Epoch: [51][851/1000]	 Loss 1.031535 (0.756200)	 acc 23 (25)	
+Epoch: [51][901/1000]	 Loss 0.461475 (0.756202)	 acc 26 (25)	
+Epoch: [51][951/1000]	 Loss 0.781040 (0.755042)	 acc 25 (25)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000014
+val img 50 acc is : 000020
+val img 100 acc is : 000020
+val img 150 acc is : 000016
+val img 200 acc is : 000015
+valid acc 0.516504
+Epoch: [52][1/1000]	 Loss 0.692569 (0.692569)	 acc 24 (24)	
+Epoch: [52][51/1000]	 Loss 0.742599 (0.684506)	 acc 25 (25)	
+Epoch: [52][101/1000]	 Loss 0.873294 (0.692052)	 acc 25 (25)	
+Epoch: [52][151/1000]	 Loss 0.671144 (0.698478)	 acc 26 (25)	
+Epoch: [52][201/1000]	 Loss 0.610750 (0.700276)	 acc 26 (25)	
+Epoch: [52][251/1000]	 Loss 0.752645 (0.720089)	 acc 28 (25)	
+Epoch: [52][301/1000]	 Loss 0.742810 (0.712174)	 acc 23 (25)	
+Epoch: [52][351/1000]	 Loss 0.801498 (0.711916)	 acc 26 (25)	
+Epoch: [52][401/1000]	 Loss 0.876032 (0.714641)	 acc 23 (25)	
+Epoch: [52][451/1000]	 Loss 0.840183 (0.721680)	 acc 22 (25)	
+Epoch: [52][501/1000]	 Loss 1.208462 (0.727377)	 acc 22 (25)	
+Epoch: [52][551/1000]	 Loss 0.841989 (0.734956)	 acc 24 (25)	
+Epoch: [52][601/1000]	 Loss 0.783625 (0.739347)	 acc 25 (25)	
+Epoch: [52][651/1000]	 Loss 0.762567 (0.745265)	 acc 24 (25)	
+Epoch: [52][701/1000]	 Loss 0.421129 (0.748791)	 acc 28 (25)	
+Epoch: [52][751/1000]	 Loss 1.106928 (0.750460)	 acc 21 (25)	
+Epoch: [52][801/1000]	 Loss 0.960800 (0.749720)	 acc 27 (25)	
+Epoch: [52][851/1000]	 Loss 0.799467 (0.749919)	 acc 26 (25)	
+Epoch: [52][901/1000]	 Loss 0.473537 (0.751002)	 acc 28 (25)	
+Epoch: [52][951/1000]	 Loss 0.694573 (0.750262)	 acc 26 (25)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000019
+val img 100 acc is : 000019
+val img 150 acc is : 000018
+val img 200 acc is : 000014
+valid acc 0.503247
+Epoch: [53][1/1000]	 Loss 0.762207 (0.762207)	 acc 22 (22)	
+Epoch: [53][51/1000]	 Loss 0.622688 (0.672067)	 acc 27 (25)	
+Epoch: [53][101/1000]	 Loss 1.150144 (0.661092)	 acc 21 (26)	
+Epoch: [53][151/1000]	 Loss 0.777141 (0.683203)	 acc 23 (25)	
+Epoch: [53][201/1000]	 Loss 0.543346 (0.692727)	 acc 25 (25)	
+Epoch: [53][251/1000]	 Loss 1.022646 (0.701105)	 acc 19 (25)	
+Epoch: [53][301/1000]	 Loss 0.605579 (0.692950)	 acc 27 (25)	
+Epoch: [53][351/1000]	 Loss 0.754230 (0.693762)	 acc 24 (25)	
+Epoch: [53][401/1000]	 Loss 0.858123 (0.701916)	 acc 26 (25)	
+Epoch: [53][451/1000]	 Loss 1.119324 (0.710337)	 acc 19 (25)	
+Epoch: [53][501/1000]	 Loss 1.009252 (0.714050)	 acc 25 (25)	
+Epoch: [53][551/1000]	 Loss 0.680647 (0.717857)	 acc 26 (25)	
+Epoch: [53][601/1000]	 Loss 0.665583 (0.724133)	 acc 26 (25)	
+Epoch: [53][651/1000]	 Loss 0.773835 (0.727264)	 acc 23 (25)	
+Epoch: [53][701/1000]	 Loss 0.462709 (0.726832)	 acc 28 (25)	
+Epoch: [53][751/1000]	 Loss 0.797709 (0.727063)	 acc 25 (25)	
+Epoch: [53][801/1000]	 Loss 0.749371 (0.725017)	 acc 25 (25)	
+Epoch: [53][851/1000]	 Loss 1.113660 (0.729217)	 acc 21 (25)	
+Epoch: [53][901/1000]	 Loss 0.368379 (0.730508)	 acc 28 (25)	
+Epoch: [53][951/1000]	 Loss 0.669285 (0.729287)	 acc 26 (25)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000016
+val img 100 acc is : 000021
+val img 150 acc is : 000016
+val img 200 acc is : 000012
+valid acc 0.510011
+Epoch: [54][1/1000]	 Loss 0.876706 (0.876706)	 acc 23 (23)	
+Epoch: [54][51/1000]	 Loss 0.715214 (0.664694)	 acc 27 (26)	
+Epoch: [54][101/1000]	 Loss 0.829234 (0.642965)	 acc 22 (26)	
+Epoch: [54][151/1000]	 Loss 0.638819 (0.659664)	 acc 24 (26)	
+Epoch: [54][201/1000]	 Loss 0.509183 (0.655622)	 acc 27 (26)	
+Epoch: [54][251/1000]	 Loss 0.834453 (0.665322)	 acc 24 (26)	
+Epoch: [54][301/1000]	 Loss 0.537156 (0.651862)	 acc 26 (26)	
+Epoch: [54][351/1000]	 Loss 0.761429 (0.648161)	 acc 25 (26)	
+Epoch: [54][401/1000]	 Loss 0.683348 (0.653313)	 acc 27 (26)	
+Epoch: [54][451/1000]	 Loss 0.698928 (0.659438)	 acc 23 (26)	
+Epoch: [54][501/1000]	 Loss 0.736313 (0.664660)	 acc 27 (26)	
+Epoch: [54][551/1000]	 Loss 0.917093 (0.667928)	 acc 23 (26)	
+Epoch: [54][601/1000]	 Loss 0.736724 (0.673074)	 acc 26 (25)	
+Epoch: [54][651/1000]	 Loss 0.528396 (0.679395)	 acc 27 (25)	
+Epoch: [54][701/1000]	 Loss 0.710698 (0.681585)	 acc 27 (25)	
+Epoch: [54][751/1000]	 Loss 0.810075 (0.684116)	 acc 25 (25)	
+Epoch: [54][801/1000]	 Loss 0.677436 (0.685490)	 acc 26 (25)	
+Epoch: [54][851/1000]	 Loss 1.012983 (0.688004)	 acc 22 (25)	
+Epoch: [54][901/1000]	 Loss 0.616980 (0.691716)	 acc 29 (25)	
+Epoch: [54][951/1000]	 Loss 0.690706 (0.694771)	 acc 24 (25)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000019
+val img 50 acc is : 000020
+val img 100 acc is : 000019
+val img 150 acc is : 000017
+val img 200 acc is : 000015
+valid acc 0.509199
+Epoch: [55][1/1000]	 Loss 0.525602 (0.525602)	 acc 28 (28)	
+Epoch: [55][51/1000]	 Loss 0.659111 (0.665498)	 acc 26 (26)	
+Epoch: [55][101/1000]	 Loss 0.901740 (0.658253)	 acc 23 (25)	
+Epoch: [55][151/1000]	 Loss 0.591177 (0.664682)	 acc 26 (25)	
+Epoch: [55][201/1000]	 Loss 0.478092 (0.662085)	 acc 28 (25)	
+Epoch: [55][251/1000]	 Loss 0.904726 (0.675981)	 acc 22 (25)	
+Epoch: [55][301/1000]	 Loss 0.773487 (0.667170)	 acc 26 (25)	
+Epoch: [55][351/1000]	 Loss 0.802669 (0.660674)	 acc 26 (26)	
+Epoch: [55][401/1000]	 Loss 0.674642 (0.660054)	 acc 27 (26)	
+Epoch: [55][451/1000]	 Loss 0.870432 (0.666089)	 acc 20 (25)	
+Epoch: [55][501/1000]	 Loss 0.906058 (0.669916)	 acc 26 (25)	
+Epoch: [55][551/1000]	 Loss 0.673795 (0.672704)	 acc 27 (25)	
+Epoch: [55][601/1000]	 Loss 0.574864 (0.678048)	 acc 26 (25)	
+Epoch: [55][651/1000]	 Loss 0.700754 (0.682343)	 acc 25 (25)	
+Epoch: [55][701/1000]	 Loss 0.452424 (0.684137)	 acc 27 (25)	
+Epoch: [55][751/1000]	 Loss 0.843440 (0.685781)	 acc 26 (25)	
+Epoch: [55][801/1000]	 Loss 0.931128 (0.685028)	 acc 24 (25)	
+Epoch: [55][851/1000]	 Loss 0.978939 (0.686773)	 acc 25 (25)	
+Epoch: [55][901/1000]	 Loss 0.493222 (0.688260)	 acc 28 (25)	
+Epoch: [55][951/1000]	 Loss 1.031442 (0.688917)	 acc 24 (25)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000014
+val img 50 acc is : 000017
+val img 100 acc is : 000020
+val img 150 acc is : 000016
+val img 200 acc is : 000015
+valid acc 0.507170
+Epoch: [56][1/1000]	 Loss 0.627068 (0.627068)	 acc 27 (27)	
+Epoch: [56][51/1000]	 Loss 0.763010 (0.636438)	 acc 27 (26)	
+Epoch: [56][101/1000]	 Loss 0.755401 (0.636683)	 acc 26 (26)	
+Epoch: [56][151/1000]	 Loss 0.659700 (0.646190)	 acc 25 (26)	
+Epoch: [56][201/1000]	 Loss 0.632959 (0.647225)	 acc 23 (26)	
+Epoch: [56][251/1000]	 Loss 0.725635 (0.647268)	 acc 28 (26)	
+Epoch: [56][301/1000]	 Loss 0.564805 (0.632632)	 acc 26 (26)	
+Epoch: [56][351/1000]	 Loss 0.784389 (0.631366)	 acc 25 (26)	
+Epoch: [56][401/1000]	 Loss 0.736095 (0.634954)	 acc 26 (26)	
+Epoch: [56][451/1000]	 Loss 0.708055 (0.639981)	 acc 25 (26)	
+Epoch: [56][501/1000]	 Loss 0.754126 (0.642312)	 acc 28 (26)	
+Epoch: [56][551/1000]	 Loss 0.491228 (0.641539)	 acc 31 (26)	
+Epoch: [56][601/1000]	 Loss 0.733855 (0.644653)	 acc 25 (26)	
+Epoch: [56][651/1000]	 Loss 0.667451 (0.646309)	 acc 24 (26)	
+Epoch: [56][701/1000]	 Loss 0.440256 (0.646979)	 acc 27 (26)	
+Epoch: [56][751/1000]	 Loss 0.617608 (0.646625)	 acc 24 (26)	
+Epoch: [56][801/1000]	 Loss 0.754534 (0.646432)	 acc 26 (26)	
+Epoch: [56][851/1000]	 Loss 0.881886 (0.647242)	 acc 25 (26)	
+Epoch: [56][901/1000]	 Loss 0.458137 (0.644707)	 acc 28 (26)	
+Epoch: [56][951/1000]	 Loss 0.629939 (0.644100)	 acc 28 (26)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000015
+val img 50 acc is : 000018
+val img 100 acc is : 000020
+val img 150 acc is : 000017
+val img 200 acc is : 000013
+valid acc 0.498241
+Epoch: [57][1/1000]	 Loss 0.751186 (0.751186)	 acc 24 (24)	
+Epoch: [57][51/1000]	 Loss 0.561488 (0.581599)	 acc 28 (27)	
+Epoch: [57][101/1000]	 Loss 0.660293 (0.561254)	 acc 27 (27)	
+Epoch: [57][151/1000]	 Loss 0.463382 (0.568995)	 acc 29 (27)	
+Epoch: [57][201/1000]	 Loss 0.449316 (0.594391)	 acc 27 (26)	
+Epoch: [57][251/1000]	 Loss 1.133575 (0.609431)	 acc 20 (26)	
+Epoch: [57][301/1000]	 Loss 0.490556 (0.601266)	 acc 28 (26)	
+Epoch: [57][351/1000]	 Loss 0.663767 (0.599518)	 acc 28 (26)	
+Epoch: [57][401/1000]	 Loss 0.895057 (0.598869)	 acc 26 (26)	
+Epoch: [57][451/1000]	 Loss 0.668990 (0.607696)	 acc 25 (26)	
+Epoch: [57][501/1000]	 Loss 0.746650 (0.605790)	 acc 26 (26)	
+Epoch: [57][551/1000]	 Loss 0.566552 (0.608241)	 acc 26 (26)	
+Epoch: [57][601/1000]	 Loss 0.593430 (0.610243)	 acc 28 (26)	
+Epoch: [57][651/1000]	 Loss 0.534597 (0.608739)	 acc 26 (26)	
+Epoch: [57][701/1000]	 Loss 0.549279 (0.607799)	 acc 27 (26)	
+Epoch: [57][751/1000]	 Loss 0.703720 (0.608662)	 acc 26 (26)	
+Epoch: [57][801/1000]	 Loss 1.095679 (0.609825)	 acc 23 (26)	
+Epoch: [57][851/1000]	 Loss 1.014419 (0.617109)	 acc 22 (26)	
+Epoch: [57][901/1000]	 Loss 0.364335 (0.619028)	 acc 29 (26)	
+Epoch: [57][951/1000]	 Loss 0.744164 (0.620424)	 acc 23 (26)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000014
+val img 50 acc is : 000018
+val img 100 acc is : 000020
+val img 150 acc is : 000018
+val img 200 acc is : 000018
+valid acc 0.503653
+Epoch: [58][1/1000]	 Loss 0.561587 (0.561587)	 acc 27 (27)	
+Epoch: [58][51/1000]	 Loss 0.657120 (0.603306)	 acc 29 (26)	
+Epoch: [58][101/1000]	 Loss 0.672756 (0.594401)	 acc 24 (26)	
+Epoch: [58][151/1000]	 Loss 0.456691 (0.595472)	 acc 28 (26)	
+Epoch: [58][201/1000]	 Loss 0.486688 (0.595146)	 acc 27 (26)	
+Epoch: [58][251/1000]	 Loss 0.884080 (0.609457)	 acc 22 (26)	
+Epoch: [58][301/1000]	 Loss 0.550480 (0.599842)	 acc 26 (26)	
+Epoch: [58][351/1000]	 Loss 0.637084 (0.600824)	 acc 26 (26)	
+Epoch: [58][401/1000]	 Loss 0.776856 (0.602910)	 acc 24 (26)	
+Epoch: [58][451/1000]	 Loss 0.613726 (0.613499)	 acc 26 (26)	
+Epoch: [58][501/1000]	 Loss 1.116458 (0.621876)	 acc 25 (26)	
+Epoch: [58][551/1000]	 Loss 0.474763 (0.621903)	 acc 28 (26)	
+Epoch: [58][601/1000]	 Loss 0.564360 (0.621405)	 acc 27 (26)	
+Epoch: [58][651/1000]	 Loss 0.518212 (0.621324)	 acc 27 (26)	
+Epoch: [58][701/1000]	 Loss 0.526454 (0.620292)	 acc 27 (26)	
+Epoch: [58][751/1000]	 Loss 0.798489 (0.620862)	 acc 26 (26)	
+Epoch: [58][801/1000]	 Loss 0.727186 (0.621730)	 acc 27 (26)	
+Epoch: [58][851/1000]	 Loss 0.812259 (0.624498)	 acc 26 (26)	
+Epoch: [58][901/1000]	 Loss 0.257002 (0.624108)	 acc 30 (26)	
+Epoch: [58][951/1000]	 Loss 0.731598 (0.622047)	 acc 26 (26)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000013
+val img 50 acc is : 000018
+val img 100 acc is : 000019
+val img 150 acc is : 000017
+val img 200 acc is : 000013
+valid acc 0.501488
+Epoch: [59][1/1000]	 Loss 0.656993 (0.656993)	 acc 24 (24)	
+Epoch: [59][51/1000]	 Loss 0.860491 (0.572995)	 acc 26 (27)	
+Epoch: [59][101/1000]	 Loss 0.463039 (0.540889)	 acc 28 (27)	
+Epoch: [59][151/1000]	 Loss 0.395657 (0.543623)	 acc 31 (27)	
+Epoch: [59][201/1000]	 Loss 0.375824 (0.555062)	 acc 28 (27)	
+Epoch: [59][251/1000]	 Loss 0.713617 (0.558351)	 acc 29 (27)	
+Epoch: [59][301/1000]	 Loss 0.345334 (0.552806)	 acc 29 (27)	
+Epoch: [59][351/1000]	 Loss 0.876348 (0.553721)	 acc 25 (27)	
+Epoch: [59][401/1000]	 Loss 0.718525 (0.558143)	 acc 25 (27)	
+Epoch: [59][451/1000]	 Loss 0.652763 (0.560633)	 acc 26 (27)	
+Epoch: [59][501/1000]	 Loss 0.742547 (0.561994)	 acc 28 (27)	
+Epoch: [59][551/1000]	 Loss 0.475687 (0.562681)	 acc 29 (27)	
+Epoch: [59][601/1000]	 Loss 0.693929 (0.564096)	 acc 26 (27)	
+Epoch: [59][651/1000]	 Loss 0.642608 (0.567692)	 acc 26 (26)	
+Epoch: [59][701/1000]	 Loss 0.522293 (0.566754)	 acc 28 (27)	
+Epoch: [59][751/1000]	 Loss 0.583592 (0.572112)	 acc 27 (26)	
+Epoch: [59][801/1000]	 Loss 0.619559 (0.573169)	 acc 27 (26)	
+Epoch: [59][851/1000]	 Loss 0.979443 (0.572612)	 acc 25 (26)	
+Epoch: [59][901/1000]	 Loss 0.303511 (0.572909)	 acc 28 (26)	
+Epoch: [59][951/1000]	 Loss 0.595036 (0.571180)	 acc 28 (26)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000016
+val img 100 acc is : 000017
+val img 150 acc is : 000019
+val img 200 acc is : 000014
+valid acc 0.504464
+Epoch: [60][1/1000]	 Loss 0.684213 (0.684213)	 acc 26 (26)	
+Epoch: [60][51/1000]	 Loss 0.595392 (0.563407)	 acc 25 (27)	
+Epoch: [60][101/1000]	 Loss 0.757683 (0.561377)	 acc 24 (26)	
+Epoch: [60][151/1000]	 Loss 0.517796 (0.580409)	 acc 27 (26)	
+Epoch: [60][201/1000]	 Loss 0.465115 (0.575897)	 acc 28 (26)	
+Epoch: [60][251/1000]	 Loss 0.675660 (0.574620)	 acc 28 (26)	
+Epoch: [60][301/1000]	 Loss 0.685945 (0.566623)	 acc 28 (26)	
+Epoch: [60][351/1000]	 Loss 0.796520 (0.570038)	 acc 25 (26)	
+Epoch: [60][401/1000]	 Loss 0.659912 (0.571730)	 acc 25 (26)	
+Epoch: [60][451/1000]	 Loss 0.629342 (0.575049)	 acc 27 (26)	
+Epoch: [60][501/1000]	 Loss 0.834362 (0.578066)	 acc 24 (26)	
+Epoch: [60][551/1000]	 Loss 0.387564 (0.580715)	 acc 31 (26)	
+Epoch: [60][601/1000]	 Loss 0.530938 (0.582872)	 acc 27 (26)	
+Epoch: [60][651/1000]	 Loss 0.431059 (0.585097)	 acc 28 (26)	
+Epoch: [60][701/1000]	 Loss 0.493022 (0.582016)	 acc 28 (26)	
+Epoch: [60][751/1000]	 Loss 0.569094 (0.582857)	 acc 27 (26)	
+Epoch: [60][801/1000]	 Loss 0.702181 (0.582860)	 acc 24 (26)	
+Epoch: [60][851/1000]	 Loss 0.853262 (0.587737)	 acc 26 (26)	
+Epoch: [60][901/1000]	 Loss 0.403220 (0.591504)	 acc 30 (26)	
+Epoch: [60][951/1000]	 Loss 0.478872 (0.591576)	 acc 31 (26)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000014
+val img 50 acc is : 000018
+val img 100 acc is : 000019
+val img 150 acc is : 000018
+val img 200 acc is : 000015
+valid acc 0.505141
+Epoch: [61][1/1000]	 Loss 0.599369 (0.599369)	 acc 26 (26)	
+Epoch: [61][51/1000]	 Loss 0.641252 (0.517149)	 acc 26 (27)	
+Epoch: [61][101/1000]	 Loss 0.458999 (0.512150)	 acc 26 (27)	
+Epoch: [61][151/1000]	 Loss 0.463627 (0.523242)	 acc 28 (27)	
+Epoch: [61][201/1000]	 Loss 0.425739 (0.526398)	 acc 30 (27)	
+Epoch: [61][251/1000]	 Loss 0.977694 (0.538778)	 acc 24 (27)	
+Epoch: [61][301/1000]	 Loss 0.676970 (0.542073)	 acc 26 (27)	
+Epoch: [61][351/1000]	 Loss 0.692234 (0.543983)	 acc 25 (27)	
+Epoch: [61][401/1000]	 Loss 0.747553 (0.546045)	 acc 23 (27)	
+Epoch: [61][451/1000]	 Loss 0.752547 (0.544729)	 acc 23 (27)	
+Epoch: [61][501/1000]	 Loss 0.684897 (0.552523)	 acc 28 (27)	
+Epoch: [61][551/1000]	 Loss 0.606099 (0.562539)	 acc 27 (27)	
+Epoch: [61][601/1000]	 Loss 0.510057 (0.565916)	 acc 27 (27)	
+Epoch: [61][651/1000]	 Loss 0.381465 (0.569021)	 acc 29 (26)	
+Epoch: [61][701/1000]	 Loss 0.482339 (0.570200)	 acc 28 (26)	
+Epoch: [61][751/1000]	 Loss 0.567851 (0.572981)	 acc 24 (26)	
+Epoch: [61][801/1000]	 Loss 0.637854 (0.575976)	 acc 27 (26)	
+Epoch: [61][851/1000]	 Loss 0.853220 (0.574363)	 acc 26 (26)	
+Epoch: [61][901/1000]	 Loss 0.258418 (0.572795)	 acc 31 (26)	
+Epoch: [61][951/1000]	 Loss 0.459058 (0.570398)	 acc 29 (26)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000015
+val img 50 acc is : 000018
+val img 100 acc is : 000021
+val img 150 acc is : 000019
+val img 200 acc is : 000014
+valid acc 0.504194
+Epoch: [62][1/1000]	 Loss 0.628859 (0.628859)	 acc 25 (25)	
+Epoch: [62][51/1000]	 Loss 0.480290 (0.501365)	 acc 28 (27)	
+Epoch: [62][101/1000]	 Loss 0.686179 (0.471471)	 acc 24 (28)	
+Epoch: [62][151/1000]	 Loss 0.424186 (0.480075)	 acc 29 (27)	
+Epoch: [62][201/1000]	 Loss 0.553928 (0.503476)	 acc 28 (27)	
+Epoch: [62][251/1000]	 Loss 0.614931 (0.508865)	 acc 28 (27)	
+Epoch: [62][301/1000]	 Loss 0.366073 (0.503617)	 acc 30 (27)	
+Epoch: [62][351/1000]	 Loss 0.622196 (0.501184)	 acc 28 (27)	
+Epoch: [62][401/1000]	 Loss 0.767672 (0.506775)	 acc 25 (27)	
+Epoch: [62][451/1000]	 Loss 0.753783 (0.511824)	 acc 26 (27)	
+Epoch: [62][501/1000]	 Loss 0.813787 (0.523068)	 acc 25 (27)	
+Epoch: [62][551/1000]	 Loss 0.699855 (0.534713)	 acc 26 (27)	
+Epoch: [62][601/1000]	 Loss 0.778646 (0.544110)	 acc 24 (27)	
+Epoch: [62][651/1000]	 Loss 0.551796 (0.548118)	 acc 26 (27)	
+Epoch: [62][701/1000]	 Loss 0.434416 (0.547557)	 acc 28 (27)	
+Epoch: [62][751/1000]	 Loss 0.471234 (0.548836)	 acc 28 (27)	
+Epoch: [62][801/1000]	 Loss 0.660576 (0.548357)	 acc 25 (27)	
+Epoch: [62][851/1000]	 Loss 1.184914 (0.550688)	 acc 23 (27)	
+Epoch: [62][901/1000]	 Loss 0.392366 (0.551243)	 acc 28 (27)	
+Epoch: [62][951/1000]	 Loss 0.565183 (0.552028)	 acc 28 (27)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000017
+val img 100 acc is : 000020
+val img 150 acc is : 000019
+val img 200 acc is : 000015
+valid acc 0.492018
+Epoch: [63][1/1000]	 Loss 0.540492 (0.540492)	 acc 28 (28)	
+Epoch: [63][51/1000]	 Loss 0.498132 (0.493894)	 acc 27 (27)	
+Epoch: [63][101/1000]	 Loss 0.510634 (0.487962)	 acc 28 (27)	
+Epoch: [63][151/1000]	 Loss 0.496595 (0.493643)	 acc 27 (27)	
+Epoch: [63][201/1000]	 Loss 0.594495 (0.515475)	 acc 27 (27)	
+Epoch: [63][251/1000]	 Loss 0.745622 (0.527351)	 acc 25 (27)	
+Epoch: [63][301/1000]	 Loss 0.392403 (0.520312)	 acc 29 (27)	
+Epoch: [63][351/1000]	 Loss 0.831738 (0.519048)	 acc 25 (27)	
+Epoch: [63][401/1000]	 Loss 0.540698 (0.523196)	 acc 28 (27)	
+Epoch: [63][451/1000]	 Loss 0.739197 (0.526919)	 acc 26 (27)	
+Epoch: [63][501/1000]	 Loss 0.694578 (0.534008)	 acc 28 (27)	
+Epoch: [63][551/1000]	 Loss 0.600462 (0.544596)	 acc 27 (27)	
+Epoch: [63][601/1000]	 Loss 0.658338 (0.550810)	 acc 26 (27)	
+Epoch: [63][651/1000]	 Loss 0.638174 (0.558946)	 acc 27 (26)	
+Epoch: [63][701/1000]	 Loss 0.369732 (0.556107)	 acc 29 (26)	
+Epoch: [63][751/1000]	 Loss 0.451505 (0.555283)	 acc 27 (26)	
+Epoch: [63][801/1000]	 Loss 0.677989 (0.555441)	 acc 26 (27)	
+Epoch: [63][851/1000]	 Loss 1.078663 (0.556113)	 acc 23 (27)	
+Epoch: [63][901/1000]	 Loss 0.248717 (0.555636)	 acc 31 (27)	
+Epoch: [63][951/1000]	 Loss 0.803776 (0.553543)	 acc 27 (27)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000020
+val img 100 acc is : 000020
+val img 150 acc is : 000018
+val img 200 acc is : 000013
+valid acc 0.496212
+Epoch: [64][1/1000]	 Loss 0.541073 (0.541073)	 acc 27 (27)	
+Epoch: [64][51/1000]	 Loss 0.436494 (0.521598)	 acc 27 (27)	
+Epoch: [64][101/1000]	 Loss 0.560245 (0.489807)	 acc 28 (27)	
+Epoch: [64][151/1000]	 Loss 0.431460 (0.499885)	 acc 29 (27)	
+Epoch: [64][201/1000]	 Loss 0.621801 (0.512608)	 acc 26 (27)	
+Epoch: [64][251/1000]	 Loss 0.600174 (0.515411)	 acc 26 (27)	
+Epoch: [64][301/1000]	 Loss 0.398523 (0.510131)	 acc 29 (27)	
+Epoch: [64][351/1000]	 Loss 0.807217 (0.502868)	 acc 26 (27)	
+Epoch: [64][401/1000]	 Loss 0.573740 (0.504742)	 acc 28 (27)	
+Epoch: [64][451/1000]	 Loss 0.674536 (0.496898)	 acc 24 (27)	
+Epoch: [64][501/1000]	 Loss 0.577180 (0.505304)	 acc 28 (27)	
+Epoch: [64][551/1000]	 Loss 0.480766 (0.510944)	 acc 28 (27)	
+Epoch: [64][601/1000]	 Loss 0.367834 (0.513459)	 acc 28 (27)	
+Epoch: [64][651/1000]	 Loss 0.542088 (0.517017)	 acc 28 (27)	
+Epoch: [64][701/1000]	 Loss 0.398290 (0.515596)	 acc 30 (27)	
+Epoch: [64][751/1000]	 Loss 0.452364 (0.516802)	 acc 27 (27)	
+Epoch: [64][801/1000]	 Loss 0.624218 (0.515000)	 acc 26 (27)	
+Epoch: [64][851/1000]	 Loss 0.809526 (0.513847)	 acc 25 (27)	
+Epoch: [64][901/1000]	 Loss 0.309589 (0.513087)	 acc 30 (27)	
+Epoch: [64][951/1000]	 Loss 0.590918 (0.512975)	 acc 28 (27)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000011
+val img 50 acc is : 000020
+val img 100 acc is : 000022
+val img 150 acc is : 000019
+val img 200 acc is : 000012
+valid acc 0.505411
+Epoch: [65][1/1000]	 Loss 0.522190 (0.522190)	 acc 26 (26)	
+Epoch: [65][51/1000]	 Loss 0.455594 (0.497196)	 acc 29 (27)	
+Epoch: [65][101/1000]	 Loss 0.353627 (0.466574)	 acc 29 (28)	
+Epoch: [65][151/1000]	 Loss 0.414904 (0.481975)	 acc 29 (27)	
+Epoch: [65][201/1000]	 Loss 0.364500 (0.491826)	 acc 27 (27)	
+Epoch: [65][251/1000]	 Loss 0.738075 (0.502613)	 acc 26 (27)	
+Epoch: [65][301/1000]	 Loss 0.382558 (0.498541)	 acc 29 (27)	
+Epoch: [65][351/1000]	 Loss 0.513686 (0.494606)	 acc 29 (27)	
+Epoch: [65][401/1000]	 Loss 0.504730 (0.492797)	 acc 27 (27)	
+Epoch: [65][451/1000]	 Loss 0.315502 (0.488532)	 acc 30 (27)	
+Epoch: [65][501/1000]	 Loss 0.615342 (0.497949)	 acc 26 (27)	
+Epoch: [65][551/1000]	 Loss 0.482560 (0.504818)	 acc 30 (27)	
+Epoch: [65][601/1000]	 Loss 0.539753 (0.507377)	 acc 26 (27)	
+Epoch: [65][651/1000]	 Loss 0.504918 (0.508436)	 acc 28 (27)	
+Epoch: [65][701/1000]	 Loss 0.205503 (0.505951)	 acc 31 (27)	
+Epoch: [65][751/1000]	 Loss 0.434648 (0.505120)	 acc 28 (27)	
+Epoch: [65][801/1000]	 Loss 0.692800 (0.506389)	 acc 23 (27)	
+Epoch: [65][851/1000]	 Loss 0.928036 (0.510377)	 acc 24 (27)	
+Epoch: [65][901/1000]	 Loss 0.415710 (0.510791)	 acc 27 (27)	
+Epoch: [65][951/1000]	 Loss 0.535868 (0.510993)	 acc 29 (27)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000013
+val img 50 acc is : 000019
+val img 100 acc is : 000018
+val img 150 acc is : 000018
+val img 200 acc is : 000014
+valid acc 0.499865
+Epoch: [66][1/1000]	 Loss 0.499665 (0.499665)	 acc 28 (28)	
+Epoch: [66][51/1000]	 Loss 0.595044 (0.489747)	 acc 27 (27)	
+Epoch: [66][101/1000]	 Loss 0.528428 (0.468633)	 acc 28 (27)	
+Epoch: [66][151/1000]	 Loss 0.323205 (0.482515)	 acc 31 (27)	
+Epoch: [66][201/1000]	 Loss 0.331554 (0.498260)	 acc 30 (27)	
+Epoch: [66][251/1000]	 Loss 0.545612 (0.501451)	 acc 29 (27)	
+Epoch: [66][301/1000]	 Loss 0.433952 (0.497469)	 acc 27 (27)	
+Epoch: [66][351/1000]	 Loss 0.637025 (0.493469)	 acc 27 (27)	
+Epoch: [66][401/1000]	 Loss 0.785603 (0.503495)	 acc 26 (27)	
+Epoch: [66][451/1000]	 Loss 0.557885 (0.506674)	 acc 28 (27)	
+Epoch: [66][501/1000]	 Loss 0.676322 (0.511810)	 acc 25 (27)	
+Epoch: [66][551/1000]	 Loss 0.558532 (0.518598)	 acc 28 (27)	
+Epoch: [66][601/1000]	 Loss 0.418805 (0.519219)	 acc 29 (27)	
+Epoch: [66][651/1000]	 Loss 0.445471 (0.522667)	 acc 28 (27)	
+Epoch: [66][701/1000]	 Loss 0.334916 (0.521065)	 acc 29 (27)	
+Epoch: [66][751/1000]	 Loss 0.951520 (0.521852)	 acc 24 (27)	
+Epoch: [66][801/1000]	 Loss 0.513058 (0.520546)	 acc 29 (27)	
+Epoch: [66][851/1000]	 Loss 0.701470 (0.518997)	 acc 26 (27)	
+Epoch: [66][901/1000]	 Loss 0.398772 (0.518842)	 acc 28 (27)	
+Epoch: [66][951/1000]	 Loss 0.512562 (0.516507)	 acc 29 (27)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000020
+val img 100 acc is : 000020
+val img 150 acc is : 000020
+val img 200 acc is : 000014
+valid acc 0.508117
+Epoch: [67][1/1000]	 Loss 0.700333 (0.700333)	 acc 26 (26)	
+Epoch: [67][51/1000]	 Loss 0.603876 (0.513580)	 acc 25 (27)	
+Epoch: [67][101/1000]	 Loss 0.421750 (0.500718)	 acc 29 (27)	
+Epoch: [67][151/1000]	 Loss 0.567138 (0.502756)	 acc 28 (27)	
+Epoch: [67][201/1000]	 Loss 0.655717 (0.502798)	 acc 25 (27)	
+Epoch: [67][251/1000]	 Loss 0.532596 (0.505984)	 acc 29 (27)	
+Epoch: [67][301/1000]	 Loss 0.379197 (0.495837)	 acc 26 (27)	
+Epoch: [67][351/1000]	 Loss 0.404036 (0.491838)	 acc 30 (27)	
+Epoch: [67][401/1000]	 Loss 0.680417 (0.488500)	 acc 26 (27)	
+Epoch: [67][451/1000]	 Loss 0.479060 (0.487112)	 acc 29 (27)	
+Epoch: [67][501/1000]	 Loss 0.592103 (0.483279)	 acc 27 (27)	
+Epoch: [67][551/1000]	 Loss 0.493593 (0.488082)	 acc 28 (27)	
+Epoch: [67][601/1000]	 Loss 0.505077 (0.488981)	 acc 24 (27)	
+Epoch: [67][651/1000]	 Loss 0.258082 (0.489160)	 acc 31 (27)	
+Epoch: [67][701/1000]	 Loss 0.325951 (0.485290)	 acc 29 (27)	
+Epoch: [67][751/1000]	 Loss 0.377413 (0.490989)	 acc 29 (27)	
+Epoch: [67][801/1000]	 Loss 0.415781 (0.489289)	 acc 30 (27)	
+Epoch: [67][851/1000]	 Loss 0.754761 (0.487341)	 acc 25 (27)	
+Epoch: [67][901/1000]	 Loss 0.191531 (0.487004)	 acc 32 (27)	
+Epoch: [67][951/1000]	 Loss 0.624042 (0.486761)	 acc 28 (27)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000013
+val img 50 acc is : 000019
+val img 100 acc is : 000019
+val img 150 acc is : 000017
+val img 200 acc is : 000012
+valid acc 0.490936
+Epoch: [68][1/1000]	 Loss 0.487822 (0.487822)	 acc 25 (25)	
+Epoch: [68][51/1000]	 Loss 0.709368 (0.482990)	 acc 24 (27)	
+Epoch: [68][101/1000]	 Loss 0.443038 (0.449995)	 acc 30 (28)	
+Epoch: [68][151/1000]	 Loss 0.425824 (0.450762)	 acc 29 (28)	
+Epoch: [68][201/1000]	 Loss 0.536333 (0.462153)	 acc 27 (27)	
+Epoch: [68][251/1000]	 Loss 0.499704 (0.468884)	 acc 26 (27)	
+Epoch: [68][301/1000]	 Loss 0.457766 (0.474528)	 acc 26 (27)	
+Epoch: [68][351/1000]	 Loss 0.751657 (0.475133)	 acc 25 (27)	
+Epoch: [68][401/1000]	 Loss 0.397187 (0.475640)	 acc 27 (27)	
+Epoch: [68][451/1000]	 Loss 0.541216 (0.480005)	 acc 28 (27)	
+Epoch: [68][501/1000]	 Loss 0.831877 (0.484766)	 acc 26 (27)	
+Epoch: [68][551/1000]	 Loss 0.496289 (0.491807)	 acc 29 (27)	
+Epoch: [68][601/1000]	 Loss 0.695257 (0.498638)	 acc 24 (27)	
+Epoch: [68][651/1000]	 Loss 0.773231 (0.501777)	 acc 25 (27)	
+Epoch: [68][701/1000]	 Loss 0.530505 (0.501950)	 acc 27 (27)	
+Epoch: [68][751/1000]	 Loss 0.397835 (0.502658)	 acc 29 (27)	
+Epoch: [68][801/1000]	 Loss 0.517397 (0.501832)	 acc 29 (27)	
+Epoch: [68][851/1000]	 Loss 0.764088 (0.500727)	 acc 27 (27)	
+Epoch: [68][901/1000]	 Loss 0.266700 (0.496388)	 acc 29 (27)	
+Epoch: [68][951/1000]	 Loss 0.398023 (0.495395)	 acc 29 (27)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000015
+val img 50 acc is : 000015
+val img 100 acc is : 000017
+val img 150 acc is : 000017
+val img 200 acc is : 000014
+valid acc 0.499729
+Epoch: [69][1/1000]	 Loss 0.369365 (0.369365)	 acc 28 (28)	
+Epoch: [69][51/1000]	 Loss 0.505630 (0.465750)	 acc 28 (28)	
+Epoch: [69][101/1000]	 Loss 0.582395 (0.441325)	 acc 28 (28)	
+Epoch: [69][151/1000]	 Loss 0.329644 (0.452881)	 acc 30 (28)	
+Epoch: [69][201/1000]	 Loss 0.331082 (0.458328)	 acc 30 (28)	
+Epoch: [69][251/1000]	 Loss 0.458950 (0.463126)	 acc 29 (27)	
+Epoch: [69][301/1000]	 Loss 0.371249 (0.460502)	 acc 28 (27)	
+Epoch: [69][351/1000]	 Loss 0.659862 (0.456257)	 acc 25 (28)	
+Epoch: [69][401/1000]	 Loss 0.331675 (0.451542)	 acc 30 (28)	
+Epoch: [69][451/1000]	 Loss 0.474188 (0.450731)	 acc 27 (28)	
+Epoch: [69][501/1000]	 Loss 0.621355 (0.448837)	 acc 26 (28)	
+Epoch: [69][551/1000]	 Loss 0.588638 (0.456738)	 acc 28 (28)	
+Epoch: [69][601/1000]	 Loss 0.333711 (0.460698)	 acc 28 (28)	
+Epoch: [69][651/1000]	 Loss 0.657100 (0.466010)	 acc 26 (28)	
+Epoch: [69][701/1000]	 Loss 0.469483 (0.468871)	 acc 27 (27)	
+Epoch: [69][751/1000]	 Loss 0.579972 (0.476433)	 acc 28 (27)	
+Epoch: [69][801/1000]	 Loss 0.764348 (0.478661)	 acc 26 (27)	
+Epoch: [69][851/1000]	 Loss 0.997806 (0.482175)	 acc 24 (27)	
+Epoch: [69][901/1000]	 Loss 0.394535 (0.482714)	 acc 28 (27)	
+Epoch: [69][951/1000]	 Loss 0.434297 (0.481558)	 acc 28 (27)	
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint.pth.tar'
+val img 0 acc is : 000016
+val img 50 acc is : 000021
+val img 100 acc is : 000022
+val img 150 acc is : 000017
+val img 200 acc is : 000011
+valid acc 0.505411
+=> Loaded checkpoint '/home/stage/yuan/Video_QA/checkpoint_best.pth.tar'
+test img 0 acc is : 17
+test img 50 acc is : 16
+test img 100 acc is : 11
+test img 150 acc is : 17
+test img 200 acc is : 17
+test img 250 acc is : 14
+test img 300 acc is : 16
+test img 350 acc is : 15
+test img 400 acc is : 21
+test acc is : 0.512088
+
+Process finished with exit code 0
+
+
+
+
